@@ -1,155 +1,230 @@
-\chapter{Formatting options}\label{ch:introduction}
+% Main report text. Headings adapted to the course report class.
+\chapter{Introduction}\label{sec:intro}
+Each input to the sandpile is just one grain, but its effect depends on the configuration it lands on. A stable site may absorb the grain, or a toppling may push neighbouring sites past their thresholds and start a cascade. This makes the model useful for studying a basic question in complex systems: how can the same small input produce responses of very different sizes?
 
-The best way to view this document is in a split-view format, with the \texttt{.tex} file open and the corresponding portion of the \texttt{.pdf} output also visible.
+Bak, Tang, and Wiesenfeld introduced self-organized criticality (SOC) to describe systems that develop critical behaviour under slow driving, without an externally tuned critical parameter~\cite{bak1987,bak1988}. Their sandpile model combines gradual input with rapid redistribution and loss at the boundary. Its simple rules allow us to examine how local instability affects the system as a whole.
 
-\section{Equations and tables}\label{sec:equationexamples}
+We will study how the standard two-dimensional BTW model approaches a stationary state and how avalanche statistics change with lattice size. Height and loss measurements will describe the balance between input and dissipation; avalanche distributions and correlations will describe the response to each grain. The Abelian property supplies a mathematical basis for checking the simulation. The study follows the core project specification~\cite{handout} and keeps its driving, boundary, and toppling rules fixed.
+% Scope: exclude all optional model extensions in Section 3 of the handout.
 
-You can write an equation without a label by using an asterisk:
-\begin{equation*}
-f(x) = (x+a)(x+b).
-\end{equation*}
-Alternatively, you can number and label your mathematical expressions:
-\begin{equation}\label{eq:Lagrangian_EM}
-\mathcal{L}_{\text{EM}} 
-  = \frac{1}{2} \biggl( \epsilon_{0} \left| \vect{E} \right|^{2} + \frac{1}{\mu_{0}} \left| \vect{B} \right|^{2} \biggr)
-   - \phi \varrho_{\text{free}} + \vect{A} \cdot \vect{J}_{\text{free}}
-   + \vect{E} \cdot \vect{P} + \vect{B} \cdot \vect{M}.
-% = \mathcal{L}_{\text{field}} + \mathcal{L}_{\text{int}}
-% = - \frac{1}{4 \mu_{0}} F^{\alpha \beta} F_{\alpha \beta} - A_{\alpha} J^{\alpha}.
-\end{equation}
-This way, we can later reference something we wrote earlier, like the electromagnetic Lagrangian density in non-relativistic vector notation shown in Equation (\ref{eq:Lagrangian_EM}).\\
-
-The equation environment allows you to construct a number of objects, such as arrays and algined sets of equations. For instance, we might want to write a general matrix:
+\chapter{Background and model}\label{sec:model}
+\section{Scale invariance and power laws}\label{sec:scaling}
+Scale invariance means that changing scale leaves the shape of a relation unchanged, apart from an overall factor. Suppose a positive function $f$ satisfies
 \begin{equation}
-\vect{c} = 
-  \left(\begin{array}{c c c c c}
-    c_{11} & c_{12} & c_{13} & \ldots & c_{1n} \\
-    c_{21} & c_{22} & c_{23} & \ldots & c_{2n} \\
-    c_{31} & c_{32} & c_{33} & \ldots & c_{3n} \\
-    \vdots & \vdots & \vdots & \ddots & \vdots \\
-    c_{m1} & c_{m2} & c_{m3} & \ldots & c_{mn} \\
-  \end{array}\right).
+ f(cx)=g(c)f(x),\qquad c,x>0.
 \end{equation}
-We might alternatively want to write a set of simultaneous equations. If future descriptions require for all of them to have unique labels, try using the `subequations' environment as well as the `eqnarray' environment.
-\begin{subequations}\label{eq:simulALL}
-\begin{eqnarray}
- 3x + 5y +  z &=& 5\\ \label{eq:simulB}
- 7x - 2y + 4z &=& 3\\
--6x + 3y + 2z &=& 1.
-\end{eqnarray}
-\end{subequations}
-This will allow you to talk about the set of simultaneous equations as a whole by referring the reader to Equation (\ref{eq:simulALL}), or else to a specific statement like Equation (\ref{eq:simulB}).\\
+Rescaling first by $a$ and then by $b$ gives $g(ab)=g(a)g(b)$. Under continuity, or suitable measurability assumptions, the positive solutions have the form $g(c)=c^{-\alpha}$ for a real exponent $\alpha$. For a reference scale $x_0$,
+\begin{equation}
+ f(x)=f(x_0)(x/x_0)^{-\alpha}=C x^{-\alpha}.
+ \label{eq:powerlaw}
+\end{equation}
+This argument assumes invariance under every positive scale factor. Invariance under a single discrete factor allows more general forms. A probability distribution also needs suitable cutoffs to be normalizable.
 
-Sometimes you'll want to derive a result, which in its clearest form requires more than one line of algebra. There are a few ways to accomplish this, and the best choice will depend on the task at hand and your personal taste. You can instruct the compiler \textit{not} to give a label to one or more of the lines as you go.
-\begin{eqnarray}\notag
-\lefteqn{R_{x} (\varepsilon) R_{y} (\varepsilon) - R_{y} (\varepsilon) R_{x} (\varepsilon)} \\ \notag
-& = &  \left( 1 - \frac{i J_{x} \varepsilon}{\hbar} - \frac{J_{x}^{2} \varepsilon^{2}}{2 \hbar^{2}} \right) 
- \left( 1 - \frac{i J_{y} \varepsilon}{\hbar} - \frac{J_{y}^{2} \varepsilon^{2}}{2 \hbar^{2}} \right) - 
- \left( 1 - \frac{i J_{y} \varepsilon}{\hbar} - \frac{J_{y}^{2} \varepsilon^{2}}{2 \hbar^{2}} \right)
- \left( 1 - \frac{i J_{x} \varepsilon}{\hbar} - \frac{J_{x}^{2} \varepsilon^{2}}{2 \hbar^{2}} \right) \\
-& = &  \left( 1 - \frac{i J_{z} \varepsilon^{2}}{\hbar} \right) - 1 + \mathcal{O} (\varepsilon^{3}). 
-\end{eqnarray}
+On a finite lattice, approximate scaling is possible between the scale of individual sites and the scale of the whole system. The probability mass function (PMF) and complementary cumulative distribution function (CCDF) have different exponents. If $p(n)\propto n^{-\alpha}$ is an unbounded pure tail with $\alpha>1$, then
+\begin{equation}
+ \Prob(X\geq n)=\sum_{m=n}^{\infty}p(m)\sim C' n^{-(\alpha-1)}.
+\end{equation}
+The CCDF exponent is therefore one less than the PMF exponent. A straight section on logarithmic axes suggests a possible scaling range. Testing a power-law description also requires a stated fitting range, uncertainty estimates, and comparison with other distributions~\cite{clauset2009}.
 
-A table of data is sometimes necessary, for which there is a dedicated environment. An example of this is given in Table (\ref{tab:measuredconstants}) -- note that the counter for tables is separate from the counter for equations. If this isn't to your liking, you can change the enumeration style of one or both. (Google has plenty of suggestions).
+\section{Slow driving, local thresholds, and dissipation}\label{sec:rules}
+Let $\Lambda_L=\{0,\ldots,L-1\}^2$ be the lattice, and let $h_t(x)\in\mathbb{N}_0$ be the height at site $x$ after addition $t$ has fully relaxed. A configuration is stable when every height is in $\{0,1,2,3\}$. Starting from an empty lattice, we choose $x_t$ independently and uniformly at each step and add one grain. A site with height at least four may topple:
+\begin{equation}
+ h(x)\leftarrow h(x)-4,\qquad
+ h(y)\leftarrow h(y)+1\quad (y\in\Lambda_L,\ \|y-x\|_1=1).
+ \label{eq:rule}
+\end{equation}
+Grains sent outside the lattice leave the system. The threshold remains four at boundary sites, and each toppling removes four grains from its source. We add the next grain only after the lattice is stable. The clock $t$ counts additions; topplings within an avalanche are instantaneous on this scale.
 
-\begin{table}[h!]
-\begin{center}
-\begin{tabular}{ l l l c l}\hline
-\textbf{description}  & \textbf{} & \textbf{value} \\ \hline
-electronic charge & $e$ & $1.6021766 \times 10^{-19} \coulomb$ \\
-proton mass            & $m_{p}$ & $1.6726218 \times 10^{-27} \kilo\gram$ &  
- or & $938.27203 \mega\electronvolt\per c^{2}$ \\
-electron mass          & $m_{e}$ & $9.1093822 \times 10^{-31} \kilo\gram$ & or & $510.99891 \kilo\electronvolt\per c^{2}$ \\
-permittivity of vacuum & $\epsilon_{0}$ & $8.8541878 \times 10^{-12} \farad\per\meter $ \\
-permeability of vacuum & $\mu_{0}$         & $1.2566371 \times 10^{-6} \; \henry\per\meter$ & 
- or & $4 \pi \times 10^{-7} \henry\per\meter $ \\
-speed of light in vacuum & $c$               & $2.9979246 \times 10^{+8} \; \meter\per\second $ \\ 
-electrostatic constant   & $k_{e}$ & $8.9875518 \times 10^{+9} \; \meter\per\farad$ & 
- or & $1/4 \pi \epsilon_{0}$ \\
-Planck constant        & $h$ & $6.6260696 \times 10^{-34} \; \joule\cdot\second$ & 
- or & $4.1356675 \times 10^{-15} \electronvolt\cdot\second$ \\
-reduced Planck constant        & $\hbar$ & $1.0545717 \times 10^{-34} \; \joule\cdot\second$ & 
- or & $6.5821193 \times 10^{-16} \electronvolt\cdot\second$ \\
-\hline
-\end{tabular}
-\end{center}
-\caption{A table of measured constants.}
-\label{tab:measuredconstants}
+The separation between slow input and rapid relaxation is central to the model. Local thresholds allow activity to spread, interior topplings conserve grains, and the boundary removes them. Together, these features motivate the study of broad avalanche distributions once the system reaches a stationary regime.
+
+\section{Boundaries and the meaning of stationarity}\label{sec:boundaries}
+Open boundaries allow grains to leave as new grains arrive. If $M_t=\sum_x h_t(x)$ is the total mass and $D_t$ is the loss during event $t$, then
+\begin{equation}
+ M_t=M_{t-1}+1-D_t,\qquad
+ \frac{1}{T}\sum_{t=1}^{T}D_t=1-\frac{M_T-M_0}{T}.
+ \label{eq:mass}
+\end{equation}
+Since $0\leq M_t\leq3L^2$ after stabilization, the average loss approaches one grain per addition as $T$ grows. This follows from bounded mass, so it can hold even when other statistics still show transients. Without dissipation, continued input to a finite system would eventually exceed the capacity of any stable configuration.
+
+On an initially empty infinite lattice, any finite input can stabilize by spreading outward~\cite{levinepropp2010}. If grains continue to arrive within a finite source region, total mass keeps growing and the occupied region must expand. There is no fixed-volume mass balance of the kind in Eq.~\eqref{eq:mass}. Local limiting statistics and stabilization on an already occupied infinite background require separate arguments.
+% TODO(proof): Add a short finite-support stabilizability argument if useful;
+% do not transfer the finite-box potential proof to an infinite background.
+
+We use \emph{macroscopic steady state} to mean that selected bulk observables show no systematic drift. \emph{Statistical stationarity} is stronger: the joint probability laws remain unchanged under shifts in time. \emph{Equilibrium} has no sustained externally driven transport; detailed balance is a common criterion in stochastic models. The terminology overlaps across fields, but the relevant description here is a nonequilibrium stationary state. Grains continue to enter and leave even when the height statistics settle.
+
+\section{Avalanche observables and sample definitions}\label{sec:observables}
+Let $u_t(x)$ count the elementary topplings of site $x$ during one addition and its relaxation. We will record
+\begin{align}
+ S_t&=\sum_x u_t(x), & A_t&=\sum_x\one_{\{u_t(x)>0\}},\label{eq:sizearea}\\
+ D_t&=\sum_x [4-d(x)]u_t(x), &
+ \ell_t&=\begin{cases}1+\max_{u_t(x)>0}\|x-x_t\|_1,&S_t>0,\\0,&S_t=0,\end{cases}
+ \label{eq:losslength}
+\end{align}
+Here $d(x)$ is the number of neighbours inside $\Lambda_L$. The number of topples $S_t$ includes repeated topplings at a site, while area $A_t$ counts each toppled site once. Length $\ell_t$ is the greatest Manhattan distance from the input site to a toppled site, plus one. This metric follows the axial transport rule and gives a single-site avalanche length one. It measures spatial reach from the source, rather than duration or diameter.
+
+Balance calculations and averages per addition will include events with $S_t=0$. The main distribution and correlation analyses will use nonzero avalanches ($S_t>0$), including those with no loss. Fits to positive loss will use the separate condition $D_t>0$. We will report $\Prob(S=0)$, $\Prob(D=0\mid S>0)$, and $\Prob(D>0)$ so that these sample choices are clear. The definitions imply $A_t\leq S_t$, $A_t\leq L^2$, and $1\leq\ell_t\leq2L-1$ for a nonzero avalanche. All four values are zero when $S_t=0$.
+
+\chapter{Abelian structure and theoretical benchmarks}\label{sec:theory}
+\section{The toppling matrix}\label{sec:matrix}
+Using the negative-diagonal convention in the specification, define
+\begin{equation}
+ \Delta_{xy}=\begin{cases}-4,&x=y,\\1,&\|x-y\|_1=1,\\0,&\text{otherwise},\end{cases}
+ \qquad K=-\Delta=4I-B,
+ \label{eq:matrix}
+\end{equation}
+where $B$ is the adjacency matrix of the lattice. A legal toppling at $x$ changes the column vector $h$ by $\Delta e_x=-K e_x$, with $e_x$ the coordinate unit vector. Symmetry makes this consistent with the handout's row-based notation. The threshold is $k=4=-\Delta_{xx}$.
+\footnote{Equation (6) of the specification prints $h(x)\geq\Delta_{xx}$. With a negative diagonal this conflicts with its own toppling rule; the correct condition is $h(x)\geq-\Delta_{xx}$.}
+
+Each matrix condition describes part of the grain transfer. Nonnegative off-diagonal entries mean that neighbouring sites gain grains. Symmetry gives equal transfer in either direction, and the negative diagonal records removal from the toppling site. A nonpositive row sum means that a toppling cannot create grains; a strictly negative total row sum means that dissipation occurs somewhere. For this lattice,
+\begin{equation}
+ \sum_y\Delta_{xy}=d(x)-4\leq 0,\qquad
+ \sum_{x,y}\Delta_{xy}=-4L<0.
+\end{equation}
+For $L\geq2$, the row sums are $0$ at interior sites, $-1$ at non-corner edge sites, and $-2$ at corners, where those site types exist. The single site at $L=1$ has row sum $-4$. All four conditions therefore hold. Symmetry describes this undirected model; more general Abelian sandpiles can use directed transfers. Termination also requires every site to have a path to dissipation, which the open square lattice provides.
+
+\section{Termination and independence of toppling order}\label{sec:abelian}
+The Abelian property means that choosing a different legal toppling order leaves the stabilized configuration unchanged. We prove this by establishing termination, then showing that every complete legal sequence has the same toppling counts~\cite{dhar1990,jarai2018}.
+
+\paragraph{Termination.}
+Attach every missing neighbour to an absorbing sink. For a real vector $z$ on the remaining sites,
+\begin{equation}
+ z^\top Kz=\sum_{\{x,y\}\text{ internal edge}}(z_x-z_y)^2
+             +\sum_x[4-d(x)]z_x^2.
+\end{equation}
+Every site connects to the boundary, so this expression is positive for nonzero $z$ and $K$ is invertible. Let $w$ solve $Kw=\one$. To see that $w$ is positive, suppose its minimum at $x$ were nonpositive. Then $(Kw)_x\leq[4-d(x)]w_x\leq0$, contradicting $(Kw)_x=1$. The potential $\Phi(h)=w^\top h$ is therefore nonnegative for nonnegative heights. Each legal toppling changes it by
+\begin{equation}
+ \Phi(h-Ke_x)-\Phi(h)=-w^\top Ke_x=-1.
+\end{equation}
+The potential drops by one each time and stays nonnegative. Thus only finitely many topplings are possible, and continuing while an unstable site exists must reach a stable configuration.
+
+\paragraph{Local commutation.}
+Suppose distinct sites $x$ and $y$ are both unstable in $h$. Toppling $x$ cannot reduce the height at $y$, and conversely, so either order remains legal. If $T_x$ denotes a legal toppling,
+\begin{equation}
+ T_yT_xh=h-Ke_x-Ke_y=T_xT_yh.
+\end{equation}
+The assumption that both sites are initially unstable ensures that both orders are legal.
+
+\paragraph{Unique stabilization.}
+Let $u$ and $v$ be the toppling-count vectors of two complete legal stabilizations of the same initial $h$. Follow the first sequence and suppose it is about to exceed $v$ for the first time at a site $x$. Just before that toppling, its count vector $a$ satisfies $a_x=v_x$ and $a_y\leq v_y$ at every other site. Consequently,
+\begin{equation}
+ (h-Ka)_x=h_x-4v_x+\sum_{y\sim x}a_y
+       \leq h_x-4v_x+\sum_{y\sim x}v_y=(h-Kv)_x\leq3.
+\end{equation}
+Site $x$ would already be stable, contradicting the legality of the next toppling. Hence $u\leq v$. Reversing the argument gives $v\leq u$, so $u=v$ and both final configurations equal $h-Ku$. Complete legal sequences therefore contain the same multiset of topplings. For a fixed input, the measured $S,A,D,\ell$ are also independent of the schedule.
+% TODO(proof): Recheck notation and add precise theorem/exercise locators during
+% the final proof review. The finite-grid proof is included, not deferred to tests.
+
+\section{Height, recurrence, and sampling}\label{sec:samplingtheory}
+A simple starting guess is that stable heights $0,1,2,3$ occur equally often, giving mean height $(0+1+2+3)/4=3/2$. This is a hypothesis to test: the toppling rules need not give those heights equal probabilities. The theoretical comparison is $17/8$, the limiting mean height of the uniform recurrent sandpile as the lattice grows to $\mathbb{Z}^2$~\cite{levine2014}. Finite lattices can have different means.
+
+For a finite open lattice with positive addition probability at every site, the Markov chain has one recurrent class and a uniform stationary measure on that class~\cite{jarai2018}. Uniformity over recurrent configurations differs from independent, uniform site heights, and transient configurations lie outside the class. The finite recurrent class is ergodic in the time-average sense: long-run averages converge to stationary expectations, including for a periodic chain. Convergence of the distribution at a fixed time also requires aperiodicity. In practice, short trajectories and ensembles sampled too early can be biased by their initial states, while consecutive observations can remain correlated after stationarity is reached.
+
+Vector balance gives a benchmark for the mean number of topples on each finite lattice. Under stationarity, with uniform input $q=L^{-2}\one$,
+\begin{equation}
+ h_t=h_{t-1}+e_{x_t}-Ku_t
+ \quad\Longrightarrow\quad
+ K\E[u_t]=q,\qquad \E[S_t]=\one^\top K^{-1}q.
+ \label{eq:benchmark}
+\end{equation}
+This is the mean-toppling relation from Dhar's formula~\cite{jarai2018}. We will evaluate it by solving $Kv=q$ and summing $v$. The simulation average must include additions that cause no toppling, since the expectation is taken per input grain.
+
+\chapter{Proposed computational methodology}\label{sec:methods}
+% Role: proposed method. All future tense; no software or test-pass claims.
+\section{Correctness and reproducibility}\label{sec:validation}
+The code will separate simulation from analysis and plotting. A reference routine will scan the grid and perform one legal toppling at a time. The main routine will use a queue of unstable sites, beginning with the input site after each addition. This avoids repeatedly searching the whole grid. Profiling will guide further optimization while preserving the elementary toppling counts.
+
+Before collecting data, we will check the rules on small cases: a grain that causes no toppling, topplings at interior and boundary sites, and avalanches that revisit a site. Degenerate and rectangular grids will test boundary handling. Each case must preserve nonnegative integer heights, reach stability, and satisfy Eq.~\eqref{eq:mass}. We will also compare scan, queue, stack, and random legal schedules, requiring identical final grids and per-site toppling counts. Exhaustive additions to stable $2\times2$ grids and bounded random small configurations will extend these checks.
+% TODO(figure/test): Reconstruct the handout's Figure 3 from its stated rule.
+% Its second toppling omits the grain returned to the centre; the final centre
+% should be 2, not 1. Do not copy the figure as a correctness oracle.
+% TODO(figure): Add a hand-worked avalanche diagram and its test fixture.
+
+Each event record will contain the lattice size, seed, stage, event index, input site, boundary distance, $S,A,D,\ell$, and mass after relaxation. Separate random streams will control pilot runs, production input, scheduling, and resampling. Saved configurations, software versions, data hashes, and generation commands will make each result traceable. Code documentation will give algorithm references and function inputs and outputs. To assess performance, we will time the scan and queue routines repeatedly on identical inputs and check that their outputs agree exactly.
+% TODO(reproducibility): Add tested dependencies and real reproduction commands
+% only after implementation. Record checkpoint/RNG state and restart checks.
+
+\section{Experimental design and stationarity diagnostics}\label{sec:design}
+Table~\ref{tab:design} gives the starting design. Pilot runs will determine whether the sampling budget is practical and how much initial data to discard as burn-in. The physical rules will stay the same at every lattice size.
+\begin{table}[htbp]
+\centering\small
+\caption{Planned simulations. Burn-in and analysis settings will be fixed after independent pilot runs.}
+\label{tab:design}
+\begin{tabularx}{\linewidth}{@{}p{0.33\linewidth}X@{}}
+\toprule
+Component & Proposed setting \\
+\midrule
+Main lattices & $L\in\{8,16,32,64\}$; principal display at $L=64$ \\
+Independent repetitions & Five production seeds per lattice size \\
+Production length & $200{,}000$ additions per seed, including no-avalanche events \\
+Burn-in pilot & Start checking after $10L^2$ additions; extend if needed \\
+Time versus ensemble & $L=32$: one long trajectory and 100 independent chains \\
+Initial conditions & Empty for production; random stable and all-three states for diagnostics \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
-\section{Pictures and figures}\label{sec:figures}
-Try to stick to a few data formats if possible. Vector and pdf data types are ideal, because they minimise the overall size of the document and you can zoom/print to any quality without pixelisation.\\
+We will track mean height $\bar h_t=M_t/L^2$ against $t/L^2$ and record the proportions of heights $0,1,2,3$. At least four consecutive production windows will be compared for drift in height statistics, mean topples, mean loss, and dissipation probability. Runs from different initial states will help identify transients. These checks will determine burn-in before comparison with the $3/2$ prediction, the $17/8$ limit, and the finite-lattice mean-toppling benchmark.
+% TODO(pilot): Use drift and dependence diagnostics to choose burn-in;
+% matching the literature mean is not a burn-in criterion.
 
-You can write a program that returns data or a visual representation of it (graph, coloured array, surface plot etc.), and in the latter case, you can take the resulting image and copy to your `figures' folder (this keeps the internal address conventions neat and tidy) and link the document directly to your report, like so:\\
+Time and ensemble sampling will be compared using mean height and the fraction of height-three sites. The time estimate will come from one long trajectory; the ensemble estimate will use independent chains sampled at a common time after burn-in. Autocorrelation diagnostics and block means or a block bootstrap will account for dependence along the trajectory. For the ensemble, each independent chain is one replicate. Agreement within uncertainty would be consistent with the stationary sampling theory.
+% TODO(design): Fix seed lists, burn-in criteria, checkpoints, block lengths,
+% and the long-trajectory sample length after the pilot; record budget changes.
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.40\linewidth]{figures/random_matrix.pdf}
-\end{center}
-\caption{A random square matrix, generated by a \texttt{Fortran} program.}
-\label{fig:random_matrix}
-\end{figure} 
+\section{Avalanche distributions and finite-size effects}\label{sec:distributions}
+For each lattice size, we will plot the PMF and CCDF of all four avalanche observables. The probabilities of zero-valued events will be reported alongside logarithmic plots. If logarithmic bins are used, their counts will be normalized by sample size and bin width. Fits will use the original integer observations.
 
+We will compare discrete power laws, exponentially cut off power laws, and exponential tails over the same stated range. For example, a power law conditional on $x_{\min}\leq X\leq x_{\max}$ has probability mass function
+\begin{equation}
+ p_\alpha(x)=\frac{x^{-\alpha}}{\sum_{n=x_{\min}}^{x_{\max}}n^{-\alpha}}.
+\end{equation}
+Parameters will be estimated by maximizing the marginal log likelihood, following Clauset et al.~\cite{clauset2009}. Because the observations form a time series, uncertainty will be assessed across independent seeds and time blocks. We will report sensitivity to fitting limits, retained sample counts, and discrepancies between fitted and empirical CCDFs. Likelihood comparisons will use matched observations. Any formal goodness-of-fit test would need calibration for discrete, correlated data and fitted parameters.
 
-If you need to provide a diagram of your own creation, there are several options available. You can feel free to choose whichever method your experience has endowed you with, or else represents the best compromise between effort spent and professional appearance of the final product. For instance, you could hand-draw your diagram, scan or take a photo of it, upload the resulting image to the correct directory, crop/filter it and add to your document, as shown in the LHS of Figure (\ref{fig:handcomp}).\\
+The bounds $A\leq L^2$ and $\ell\leq2L-1$ will be included in normalization, along with any stated upper fitting cutoff. Analysing each lattice size separately will show whether the distribution cutoff shifts as $L$ increases. Exponents fitted over an intermediate range will be treated as effective exponents for that range. De Menech et al.~\cite{demenech1998} found limitations of simple finite-size scaling in BTW toppling statistics, so the fits will need close inspection. Where the tail is too sparse or the range too narrow, we will report the empirical distribution and explain why a fit is inconclusive.
+% TODO(analysis): Freeze support selection and a minimum-information criterion;
+% retain sensitivity to threshold choice separately from conditional fit errors.
+% TODO(reference): Select an appropriate time-series/block-resampling reference
+% once the actual dependence-aware uncertainty method is chosen.
 
-Alternatively, you could use some available computer software to get the job done. Here we will give you an example made in Inkscape, because it is an open-source package which is available for most operating systems. Here you will make your diagram (there are plenty of tutorials and examples available online), adjust the document borders to your satisfaction, save a vector-type copy for later editing purposes (for instance, `\texttt{diagram.svg}', and then also save a pdf version (`\texttt{diagram.pdf}'). It is the second file-type which you can link to your \LaTeX document with the usual features. The comparison between a hand-drawn and computer-rendered image is fairly stark -- see the RHS of Figure (\ref{fig:handcomp}).\\
+\section{Correlations and spatial interpretation}\label{sec:correlations}
+We expect a positive correlation between topples and area: every site counted in the area must topple at least once, and some sites topple repeatedly. Larger areas should also tend to have greater spatial extent, although this does not specify an exact relation between area and length. Loss is likely to depend on size and extent as well as the input site's distance from the boundary,
+\begin{equation}
+ b_t=\min(i_t,j_t,L-1-i_t,L-1-j_t),\qquad x_t=(i_t,j_t).
+\end{equation}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.50\linewidth]{figures/dipole_hand.png}\hspace{1cm}
-\includegraphics[width=0.40\linewidth]{figures/dipole_vector.pdf}
-\end{center}
-\caption{A sketch of some electric field lines around an ideal electric dipole.}
-\label{fig:handcomp}
-\end{figure}
+At $L=64$, we will calculate all six pairwise Spearman correlations for avalanches with $S>0$, retaining events with $D=0$. Scatter or density plots will show $S$ against $A$, $A$ against $\ell$, and $S$ against $D$. Any Pearson comparison will identify whether it uses raw values or $\log(1+x)$. Grouping the data by preselected boundary distances will help explain differences in loss at similar avalanche sizes. We will analyse other lattice sizes separately and estimate uncertainty using independent seeds and time blocks.
+% Interpretation: correlation coefficients describe association, not causation.
 
-If you wish to take the last example further, try exploring some of Inkscape's features. It allows you to plot functions, write mathematical expressions (although this option does not always work) and vectorise/edit a surprisingly large assortment of existing images. If you would like your final document to look seamlessly consistent, you can even make diagrams with text and equations of the same formatting. (This involves writing everything in a dummy \LaTeX document, exporting and vectorising it online, importing that vector document into Inkscape, playing around with character size compared to final drawing size in the document, and then exporting that diagram as a pdf to be placed back into \LaTeX ... possibly not a worthwhile pursuit for the purposes of this subject.)
+\chapter{Results}\label{sec:results}
+\textit{Measurements and figures will be added after the planned simulations.}
 
-\section{Computer code}\label{sec:code}
-\subsection{Code input/output}\label{subsec:codeinout}
+\section{Validation, stationarity, and sampling}
+\todo{Summarize validation checks and timing measurements on identical inputs.}
+\todo{Add height trajectories, height frequencies, and mass-balance diagnostics. Compare the mean height with $3/2$ and the large-lattice reference $17/8$, and mean topples with Eq.~\eqref{eq:benchmark}.}
+\todo{Compare time and ensemble estimates with uncertainty intervals and autocorrelation diagnostics.}
+% TODO(validation table): Include hardware, workloads, repetitions, and timing
+% variability. Record linear-solver residuals for the mean-toppling benchmark.
+% TODO(stationarity figures): Mark burn-in; compare lattice sizes and initial
+% states. Interpret sampling discrepancies using uncertainty and transients.
 
-Talk about the language that you used, maybe referencing an integral in \cite{abramowitz1970} or a numerical algorithm in \cite{press1992} if you used \texttt{Fortran}.
+\section{Avalanche distributions and correlations}
+\todo{Plot the PMF and CCDF for topples, area, loss, and length at each lattice size. Report the probabilities of zero-valued events separately and label positive-loss samples.}
+\todo{Summarize tail fits, their uncertainty, and sensitivity to fitting limits. Explain any inconclusive fits.}
+\todo{Add the six pairwise correlations, selected joint-distribution plots, and the boundary-distance comparison.}
+% TODO(topples): Compare the cutoff across sizes and assess tail fits.
+% TODO(area): Respect the finite support when fitting.
+% TODO(loss): Report nondissipative mass and conditional positive-loss fits.
+% TODO(length): Retain the fixed Manhattan definition and assess scaling range.
+% TODO(fit table): Include L, conditioning, model, fitting limits, retained
+% count, parameters, uncertainty, and comparison diagnostics.
+% TODO(figures): Every empirical caption must identify conditioning, lattice
+% size, seeds/sample counts, uncertainty definition, and the supported finding.
 
-\subsection{Code written verbatim}\label{subsec:verbatim}
+\chapter{Discussion}\label{sec:discussion}
+The results will be used to examine how a nearly steady mean height can coexist with avalanches of widely varying sizes. Mass balance constrains the average loss per grain; the distribution measurements will describe how that loss is spread across events. The correlations and boundary-distance groups will help explain why avalanches of similar size may dissipate different amounts of sand.
 
-This can be done with the \texttt{listings} and \texttt{verbatim} packages. You should modify the preamble document so that these packages correctly interpret the programming language that you used.
+Interpretation will depend on finite lattice size, temporal correlations, and the number of observations in the tail. A poor power-law fit may reflect a limited scaling range or a different distribution shape; both possibilities will be considered. The model also simplifies physical sand through integer heights, deterministic redistribution, and instantaneous relaxation. Its value here is that these rules permit direct comparison between mathematical predictions and simulation.
+\todo{Evaluate the initial predictions using the completed results. Discuss finite-size effects and fitting sensitivity, including findings that remain inconclusive.}
 
-\newpage
+% TODO(abstract): Update after the completed results have been reviewed.
 
-\begin{lstlisting}
-      FUNCTION PINEWT(N)
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-C**********************************************************************C
-C     PINEWT EVALUATES THE INFINITE SERIES REPRESENTATION              C
-C     FOR PI AS A TRUNCATED SUM.                                       C
-C**********************************************************************C
-C
-C     ENSURE N IS A LEGAL VALUE
-      IF(N.LT.0) THEN
-        WRITE(6,*) 'In PINEWT: illegal value for N.',N
-        RETURN
-      ELSEIF(N.EQ.0) THEN
-        PINEWT = 2.0D0
-      ENDIF
-C
-C     INITIALISE SOME COUNTERS
-      TWOPOW = 1.0D0
-      FACKNM = 1.0D0
-      FACKDM = 1.0D0
-      PINEWT = TWOPOW*FACKNM*FACKNM/FACKDM
-C
-C     LOOP OVER SERIES ORDER N TIMES, ADDING EACH TERM TO TOTAL
-      DO I=1,N
-        TWOPOW = 2.0D0*TWOPOW
-        FACKNM = DFLOAT(I)*FACKNM
-        FACKDM = DFLOAT(2*I+1)*DFLOAT(2*I)*FACKDM
-        PINEWT = PINEWT + TWOPOW*FACKNM*FACKNM/FACKDM
-      ENDDO
-C
-C     DOUBLE THE RESULT (SEE WIKIPEDIA FORMULA)
-      PINEWT = 2.0D0*PINEWT
-C
-      RETURN
-      END
-\end{lstlisting}

@@ -1,33 +1,35 @@
-\documentclass[a4paper, 10.5pt, oneside]{report}
-%------------PREAMBLE
-\include{preamble}
-\usepackage{morefloats}
-%---------------------------
-                                          
+% Adapted from SuzieSheehy/FinalReport. See LICENSE and README.txt.
+% Standard report supports 10pt, 11pt, and 12pt; 11pt is used for readability.
+\documentclass[a4paper,11pt,oneside]{report}
+\input{preamble}
+
 \begin{document}
+\hypersetup{pageanchor=false}
+\input{cover}
+\hypersetup{pageanchor=true}
 
-%---------------------------TITLE PAGE
-\include{cover}
-%---------------------------
-
-%---------------------------TABLE OF CONTENTS
+\pagenumbering{roman}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{abstract}
 \tableofcontents
-%---------------------------
 
-%---------------------------MAIN BODY
+\clearpage
+\pagenumbering{arabic}
 \input{chapter1}
-%---------------------------
 
-%---------------------------APPENDICES
-\begin{appendices}
- \input{appendix1}
-\end{appendices}
-%---------------------------
+% No substantive appendix is included.
+% The course template's appendix1.tex holds commented revision notes.
+% \begin{appendices}
+% \input{appendix1}
+% \end{appendices}
 
-%---------------------------BIBLIOGRAPHY
+\clearpage
+\phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{abbrv}
+\begingroup
+\raggedright
 \bibliography{biblio}
-%---------------------------
-
+\endgroup
 \end{document}

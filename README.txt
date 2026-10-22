@@ -1,65 +1,60 @@
-COMP90072 Complex Systems report
-Author: Chia-Chi Hsu
-Migrated to the course template on 10 October 2026.
+COMP90072 Final Report, 22 October 2026
 
-Template: https://github.com/SuzieSheehy/FinalReport
-Source revision: 671f572c1d5da799ae8b5064f71243c9c2df61e7
-The template's BSD 3-Clause LICENSE is retained in this directory.
+Compile main.tex, as specified by https://github.com/SuzieSheehy/FinalReport .
+Template commit: 671f572c1d5da799ae8b5064f71243c9c2df61e7.
+The template BSD 3-Clause LICENSE is retained.
+
+The completed report uses the draft's writing style, the teacher's A4 report
+class, one-sided pages, 2 cm margins, cover, contents, chapter-based numbering
+and abbrv bibliography. The supported 11pt body size replaces the template's
+nonstandard 10.5pt option. The cover, Abstract and Contents occupy three separate
+pages. Each of the six numbered chapters starts on a new page, with a two-line
+Chapter N / chapter-title heading, as in the supplied draft. Bibliography also
+starts on its own page. The final document has 20 physical pages.
+
+To meet the page cap while retaining this structure, the body remains 11pt,
+with normal body leading, slightly tighter Results leading, 9pt captions, and wide
+figure panels regenerated from the unchanged experimental data. Figure data,
+labels and curve definitions are unchanged. The correlation matrix uses
+rectangular cells so its numeric annotations remain separated. No scientific
+result or reference was removed. The 22 October revision strengthens key captions,
+research motivation, terminology and the scientific conclusion. Precision-only
+macro changes expose narrow intervals from the original stored estimates.
+The subsequent language edit removes file inventories and internal workflow
+commentary from the report. Body and Results line spacing are both increased;
+scientific methods, measurements, mathematical arguments and citations remain.
+
+Author: Chia-Chi Hsu. Subject: COMP-90072.
+Cover date: 21 October 2026. Latest editorial revision: 22 October 2026.
+Coordinators follow the supplied template: A/Prof. Suzie Sheehy and
+Prof. Christian Reichardt. The template's sample project title, author, date
+and unrelated Coulomb illustration have been replaced or removed.
 
 Files:
-- main.tex: root document; compile this file.
-- preamble.tex: packages, report settings, author name, and date.
-- cover.tex: university logo, course details, project title, and author.
-- abstract.tex: existing abstract.
-- chapter1.tex: all six chapters of the report.
-- biblio.bib: nine references, with the original citation keys and DOI links.
-- appendix1.tex: commented Q1-12 coverage and revision notes; not typeset.
-- figures/uom_banner.pdf: university logo from the course template.
-- main.pdf: compiled report to include in the GitHub submission.
+- main.tex: primary teacher-template document.
+- preamble.tex, cover.tex, abstract.tex: settings and front matter.
+- chapter1.tex to chapter6.tex: completed introduction, model, theory, methods,
+  results (including all three extensions), and discussion/conclusion.
+- biblio.bib: nine verified references with their original citation keys.
+- figures/uom_banner.pdf: the template's University of Melbourne logo.
+- generated/: production-derived figures, tables and numeric macros.
+- main.pdf: the completed report.
+- final_report.tex: compatibility entry point that inputs main.tex.
+  The workspace final_report.pdf is identical to main.pdf.
 
-The report uses the template's report class, A4 paper, 2 cm margins, cover
-layout, contents, chapter numbering, and abbrv bibliography style. The font
-size is 11pt; the template's 10.5pt is not a standard report-class option.
-Unused example content and packages were removed. References are set flush
-left to avoid stretched spacing around long DOI links.
+Build in this directory using Tectonic 0.17.0:
+  tectonic -X compile main.tex
 
-The revised abstract and body text are preserved verbatim, apart from heading
-commands changed to chapter/section levels. Equations and citation keys are
-unchanged; equation, table, and reference numbers follow the template.
-Conclusion remains omitted. Results and Discussion retain their TODOs.
-
-The report follows Complex_Systems_Project_Plan.md and
-the supplied specification and rubrics. Questions 1-12 are covered at the
-theoretical or proposed-experiment stage. Optional extensions in Section 3
-are excluded. No simulation, experiment, or numerical result was generated.
-
-Before submission:
-- Author and date are configured in preamble.tex. The author is Chia-Chi Hsu;
-  this value also supplies PDF metadata.
-- Search the .tex files for TODO to find missing evidence and revision notes.
-  Blue TODO paragraphs are visible; percent-prefixed comments are not.
-- Keep the final report within 20 pages, including front matter and references.
-
-Build with a standard LaTeX installation, from this report directory:
+Or use standard LaTeX/BibTeX:
   pdflatex -interaction=nonstopmode -halt-on-error main.tex
   bibtex main
   pdflatex -interaction=nonstopmode -halt-on-error main.tex
   pdflatex -interaction=nonstopmode -halt-on-error main.tex
 
-Alternatively, Tectonic runs BibTeX and repeat passes automatically:
-  tectonic main.tex
-The multi-file project needs every source file and the logo when compiling.
-
-Build verification:
-- Compiled with Tectonic 0.17.0: 13 A4 pages, including the cover and references.
-- All pages were rendered and visually checked.
-- No unresolved citations/references or overflowing text were reported.
-- main.pdf and ../output/pdf/COMP90072_Report.pdf are identical copies.
-
-For the teacher's GitHub workflow, copy this project's source files, logo,
-LICENSE, and main.pdf into your fork of FinalReport. Include the compiled PDF
-in the commit. The .gitignore excludes build intermediates and local archives,
-but does not exclude main.pdf. Local migration does not create a fork or PR.
-
-Earlier source and PDF snapshots are retained locally in archive directories
-and are not included in the handoff ZIP.
+The Tectonic command was tested. The standard sequence is supplied for LaTeX
+users; it was not executed on this host. All generated inputs are included,
+so compiling this source handoff does not require rerunning simulations.
+The handoff is the editable report, not the full simulation/data archive.
+For production provenance and code, see the complete workspace README and
+analysis/report_manifest.json. Earlier draft and article editions are preserved
+in the full project's report/archive directories and are outside this handoff.

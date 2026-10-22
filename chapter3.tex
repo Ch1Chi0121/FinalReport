@@ -1,0 +1,65 @@
+\chapter{Abelian structure and exact benchmarks}\label{sec:theory}
+\section{Matrix conditions and the threshold}\label{sec:matrix}
+Using the handout's negative-diagonal convention,
+\begin{equation}
+ \Delta=-4I+B,\qquad K=-\Delta=4I-B,\qquad h\longmapsto h-Ke_x.\label{eq:matrix}
+\end{equation}
+Nonnegative off-diagonal entries of $\Delta$ ensure that a toppling adds grains to other sites or leaves them unchanged. Symmetry describes the undirected transfers used here. The negative diagonal removes grains from the toppled site, while nonpositive row sums prevent mass creation. A strictly negative total row sum means that some mass can dissipate. For the open square, row sums are zero in the interior, $-1$ at non-corner edges and $-2$ at corners for $L\geq2$, giving a total of $-4L$. The single-site case has row sum $-4$. The threshold is $k=-\Delta_{xx}=4$.
+
+Sink connectivity supplies the further condition needed for stabilization: every site must have a path to a sink. Dissipation elsewhere cannot stabilize a disconnected component with no such path. Both graphs used here meet this condition. Symmetry describes these graphs but is not required for every generalized Abelian sandpile. The cylinder wraps horizontally and has sinks only at its top and bottom; its total row sum is $-2L$ at the lattice sizes studied.
+
+Two inconsistencies in the handout affect the local rule and its example. Equation (6) requires $h(x)\geq-\Delta_{xx}$ in place of $h(x)\geq\Delta_{xx}$. In Figure 3, the upper-middle toppling omits a grain transferred to the centre. Applying the stated local rule gives
+\begin{equation}
+ \begin{pmatrix}1&3&3\\2&4&2\\2&1&1\end{pmatrix}
+ \longrightarrow
+ \begin{pmatrix}2&1&1\\3&2&0\\2&2&2\end{pmatrix},
+ \quad (S,A,D,\ell)=(4,4,4,3).
+\end{equation}
+The input mass is 19 and the final mass is 15. The initial array already includes the added grain.
+
+\section{Termination and unique stabilization}\label{sec:abelian}
+The Abelian property means that choosing a different legal toppling order leaves the stabilized configuration unchanged. We first establish termination, then show that every complete legal sequence has the same toppling counts. The argument follows the finite-graph treatment~\cite[Theorem 2.3 and Exercise 2.6]{jarai2018} and Dhar's Abelian structure~\cite{dhar1990}.
+
+\paragraph{Termination.}
+Attach missing neighbours to an absorbing sink. For a real vector $z$,
+\begin{equation}
+ z^\top Kz=\sum_{\{x,y\}\text{ internal edge}}(z_x-z_y)^2+
+               \sum_x[4-d_G(x)]z_x^2.
+\end{equation}
+Sink connectivity makes this expression positive for nonzero $z$, so $K$ is invertible. Let $Kw=\one$. If $w$ had a nonpositive minimum at $x$, then $(Kw)_x\leq[4-d_G(x)]w_x\leq0$, contradicting $(Kw)_x=1$. Hence $w>0$. The potential $\Phi(h)=w^\top h$ is nonnegative for nonnegative heights, and each elementary toppling changes it by
+\begin{equation}
+ \Phi(h-Ke_x)-\Phi(h)=-w^\top Ke_x=-1.
+\end{equation}
+The potential drops by one at each toppling and stays nonnegative. Only finitely many topplings are therefore possible, and continuing while an unstable site exists must reach a stable configuration. This applies to both the open graph and the dissipative cylinder.
+
+\paragraph{Local commutation.}
+Suppose distinct sites $x,y$ are both unstable. Toppling either site leaves the other unstable, so both orders are legal and
+\begin{equation}
+ T_yT_xh=h-Ke_x-Ke_y=T_xT_yh.
+\end{equation}
+The simultaneous-instability condition ensures legality in both orders. Conditional operators that do nothing at stable sites need not commute on arbitrary configurations.
+
+\paragraph{Unique stabilization.}
+Let $u,v$ count topplings in two complete legal stabilizations of the same configuration $h$. Follow the first sequence to the proposed toppling that would first exceed $v$ at a site $x$. Just before it, the partial counts satisfy $a_x=v_x$ and $a_y\leq v_y$ at every other site. Consequently,
+\begin{equation}
+ (h-Ka)_x=h_x-4v_x+\sum_y B_{xy}a_y
+ \leq h_x-4v_x+\sum_y B_{xy}v_y=(h-Kv)_x\leq3.
+\end{equation}
+Site $x$ would already be stable, contradicting the legality of the proposed toppling. Hence $u\leq v$. Reversing the argument gives $u=v$, so both sequences have the same final configuration. Every observable determined by the odometer is therefore independent of the schedule.
+
+\section{Stationary measures, ergodicity, and mean response}\label{sec:recurrence}
+On a finite graph connected to a sink, positive addition probability at every site makes the dynamics eventually enter a single recurrent class with probability one. Its stable configurations can reach one another through additions, and subsequent additions cannot leave the class. Stable configurations outside it are transient. Each addition permutes the recurrent class, and any probability mixture of the permutations preserves its uniform measure~\cite[Theorems 2.9, 2.11; Exercise 2.16]{jarai2018}. Changing the full-support driving distribution on the \emph{same graph} therefore preserves stationary height statistics. Uniformity applies to recurrent configurations, not all stable configurations; individual-site heights remain correlated and need not be equiprobable.
+
+Time averages are ergodic on this finite recurrent class. Convergence of the distribution at a fixed time also requires aperiodicity. The one-site model, for example, cycles through four heights; sampling every four additions preserves its initial phase. This is why we compare time and ensemble estimates at specified sampling ages and use the recurrent-state theory for the ergodic statement.
+
+Before simulation, the naive prediction assigned equal probabilities to heights zero through three, giving mean $3/2$. The literature value $17/8$ is the infinite-volume recurrent mean~\cite{levine2014}. Finite grids have their own response benchmark. For the complete input vector $a_t$, balance gives
+\begin{align}
+ h_t&=h_{t-1}+a_t-Ku_t,\\
+ K\E[u_t]&=\E[a_t]=m q,\qquad
+ \E[S_t]=\one^\top K^{-1}(mq),\qquad \E[D_t]=m.\label{eq:benchmark}
+\end{align}
+Under stationarity, this is the weighted form of Dhar's mean-toppling formula~\cite[Theorem 2.18]{jarai2018}. We solve sparse linear systems and check their residuals, avoiding an explicit inverse. An exact identity for a finite observation window is
+\begin{equation}
+ \sum_t S_t=\sum_t w^\top a_t+w^\top(h_0-h_T),\qquad Kw=\one.\label{eq:potentialbalance}
+\end{equation}
+The endpoint term accounts for mass still stored in the grid, so this identity can check a realized input stream without assuming stationarity.

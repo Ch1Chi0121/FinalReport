@@ -1,0 +1,230 @@
+{
+  "status": "passed",
+  "edition": "simpler file checks",
+  "date_melbourne": "2026-10-22",
+  "unit_test_methods": 24,
+  "comparison": {
+    "status": "passed",
+    "comparison": "Direct byte comparisons with original saved experiments",
+    "cohort_runs": {
+      "confirmation_v1": 20,
+      "ensemble_v1": 100,
+      "full_v1": 50,
+      "pilot_v1": 11
+    },
+    "identical_event_chunks": 4765,
+    "identical_state_files": 543,
+    "matching_statistical_outputs": [
+      "fits.json",
+      "correlations.json",
+      "coupling.json",
+      "ensemble.json",
+      "extensions.json",
+      "stationarity.json",
+      "benchmarks.json",
+      "boundary.json",
+      "acf.json",
+      "upper-limit records",
+      "confirmation results"
+    ],
+    "identical_plots": [
+      "batch.png",
+      "distributions.png",
+      "supplement_pmf.png",
+      "supplement_size_loss.png",
+      "sampling.png",
+      "baseline.png",
+      "fits.png",
+      "pilot.png",
+      "correlations.png",
+      "cylinder.png",
+      "driving.png"
+    ],
+    "unchanged_numerical_macros": 493,
+    "changed_macros": [
+      "kernelSeconds",
+      "ioSeconds",
+      "productionWall",
+      "compileSeconds",
+      "warmupSeconds",
+      "queueSpeed"
+    ],
+    "changes_are_measured_timings_only": true,
+    "unit_test_methods": 24,
+    "source_files_match_exercised_copy": true
+  },
+  "workflow": [
+    {
+      "stage": "check",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "started_utc": "2026-10-22T02:24:25.425673+00:00",
+      "finished_utc": "2026-10-22T02:24:31.240824+00:00",
+      "wall_seconds": 5.815128749993164,
+      "status": "passed",
+      "log": "logs/workflow_check.txt"
+    },
+    {
+      "stage": "benchmark",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/benchmark.py"
+      ],
+      "started_utc": "2026-10-22T02:24:31.241763+00:00",
+      "finished_utc": "2026-10-22T02:24:38.759218+00:00",
+      "wall_seconds": 7.517426208010875,
+      "status": "passed",
+      "log": "logs/workflow_benchmark.txt"
+    },
+    {
+      "stage": "pilot",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/pilot.py"
+      ],
+      "started_utc": "2026-10-22T02:24:38.760897+00:00",
+      "finished_utc": "2026-10-22T02:24:58.023107+00:00",
+      "wall_seconds": 19.2621915419586,
+      "status": "passed",
+      "log": "logs/workflow_pilot.txt"
+    },
+    {
+      "stage": "production",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.experiment",
+        "configs/full.json"
+      ],
+      "started_utc": "2026-10-22T02:24:58.024720+00:00",
+      "finished_utc": "2026-10-22T02:25:46.112239+00:00",
+      "wall_seconds": 48.08749862504192,
+      "status": "passed",
+      "log": "logs/workflow_production.txt"
+    },
+    {
+      "stage": "ensemble",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/ensemble.py"
+      ],
+      "started_utc": "2026-10-22T02:25:46.133146+00:00",
+      "finished_utc": "2026-10-22T02:25:53.008034+00:00",
+      "wall_seconds": 6.874847333994694,
+      "status": "passed",
+      "log": "logs/workflow_ensemble.txt"
+    },
+    {
+      "stage": "confirmation",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/confirmation.py"
+      ],
+      "started_utc": "2026-10-22T02:25:53.014082+00:00",
+      "finished_utc": "2026-10-22T02:27:27.753780+00:00",
+      "wall_seconds": 94.73968170804437,
+      "status": "passed",
+      "log": "logs/workflow_confirmation.txt"
+    },
+    {
+      "stage": "analysis",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.analysis",
+        "configs/full.json"
+      ],
+      "started_utc": "2026-10-22T02:27:27.756247+00:00",
+      "finished_utc": "2026-10-22T02:27:39.931910+00:00",
+      "wall_seconds": 12.175622542039491,
+      "status": "passed",
+      "log": "logs/workflow_analysis.txt"
+    },
+    {
+      "stage": "sensitivity",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/upper_limit_sensitivity.py"
+      ],
+      "started_utc": "2026-10-22T02:27:39.933448+00:00",
+      "finished_utc": "2026-10-22T02:27:41.597273+00:00",
+      "wall_seconds": 1.6637856669840403,
+      "status": "passed",
+      "log": "logs/workflow_sensitivity.txt"
+    },
+    {
+      "stage": "figures",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.plots"
+      ],
+      "started_utc": "2026-10-22T02:27:41.600476+00:00",
+      "finished_utc": "2026-10-22T02:27:51.921532+00:00",
+      "wall_seconds": 10.320979584008455,
+      "status": "passed",
+      "log": "logs/workflow_figures.txt"
+    },
+    {
+      "stage": "tables",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.report_artifacts"
+      ],
+      "started_utc": "2026-10-22T02:27:51.923656+00:00",
+      "finished_utc": "2026-10-22T02:27:52.322377+00:00",
+      "wall_seconds": 0.3986905830097385,
+      "status": "passed",
+      "log": "logs/workflow_tables.txt"
+    },
+    {
+      "stage": "manifest",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/manifest.py"
+      ],
+      "started_utc": "2026-10-22T02:27:52.323739+00:00",
+      "finished_utc": "2026-10-22T02:27:58.986439+00:00",
+      "wall_seconds": 6.662654083047528,
+      "status": "passed",
+      "log": "logs/workflow_manifest.txt"
+    },
+    {
+      "stage": "verify",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/manifest.py",
+        "--verify"
+      ],
+      "started_utc": "2026-10-22T02:27:58.988190+00:00",
+      "finished_utc": "2026-10-22T02:28:05.575108+00:00",
+      "wall_seconds": 6.586883292009588,
+      "status": "passed",
+      "log": "logs/workflow_verify.txt"
+    },
+    {
+      "stage": "smoke",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/smoke.py",
+        "--skip-pdf"
+      ],
+      "started_utc": "2026-10-22T02:28:05.871692+00:00",
+      "finished_utc": "2026-10-22T02:28:08.124482+00:00",
+      "wall_seconds": 2.252757042006124,
+      "status": "passed",
+      "log": "logs/workflow_smoke.txt"
+    }
+  ],
+  "c_source_cache_check": "passed: stale saved source triggered rebuilding",
+  "smoke": "passed: two fresh executions of all eight conditions",
+  "pdf_compilation_executed": false
+}

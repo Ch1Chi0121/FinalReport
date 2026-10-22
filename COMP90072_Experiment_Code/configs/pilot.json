@@ -1,0 +1,12 @@
+{
+  "schema": "pilot-v1",
+  "output": "data/pilot_v1",
+  "L": 64,
+  "models": ["baseline", "biased", "cylinder"],
+  "starts": ["empty", "random", "three"],
+  "seeds": [11001, 11002, 11003],
+  "stream": 110,
+  "grain_factors": {"baseline": 60, "biased": 100, "cylinder": 60},
+  "chunk_grains": 8192,
+  "sample_grains": 128
+}

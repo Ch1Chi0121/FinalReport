@@ -1,0 +1,17 @@
+baseline_L8_s91001 complete 2048 grains call 0.26s
+baseline_L8_s91002 complete 2048 grains call 0.02s
+biased_L8_s91001 complete 2048 grains call 0.02s
+biased_L8_s91002 complete 2048 grains call 0.02s
+cylinder_L8_s91001 complete 2048 grains call 0.02s
+cylinder_L8_s91002 complete 2048 grains call 0.02s
+batch_L8_s91001 complete 2048 grains call 0.01s
+batch_L8_s91002 complete 2048 grains call 0.01s
+baseline_L8_s91001 complete 2048 grains call 0.02s
+baseline_L8_s91002 complete 2048 grains call 0.02s
+biased_L8_s91001 complete 2048 grains call 0.02s
+biased_L8_s91002 complete 2048 grains call 0.03s
+cylinder_L8_s91001 complete 2048 grains call 0.02s
+cylinder_L8_s91002 complete 2048 grains call 0.02s
+batch_L8_s91001 complete 2048 grains call 0.01s
+batch_L8_s91002 complete 2048 grains call 0.01s
+Clean smoke passed: all models, two fresh executions, statistics and plot. PDF skipped by request.

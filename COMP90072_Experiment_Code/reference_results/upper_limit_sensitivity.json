@@ -1,0 +1,1397 @@
+{
+  "config": {
+    "model": "baseline",
+    "L": 64,
+    "xmin": 16,
+    "xmax_factors_L2": [
+      0.5,
+      1,
+      2
+    ],
+    "candidate_models": [
+      "power",
+      "cutoff",
+      "exponential"
+    ],
+    "minimum_count": 1000,
+    "seeds": [
+      21001,
+      21002,
+      21003,
+      21004,
+      21005
+    ],
+    "interpretation": "Post-review range sensitivity on retained raw observations; in-sample descriptive comparisons only. No primary fits are replaced."
+  },
+  "inputs": [
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000000000.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000008192.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000016384.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000024576.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000032768.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000040960.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000049152.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000057344.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000065536.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000073728.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000081920.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000090112.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000098304.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000106496.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000114688.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000122880.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000131072.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000139264.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000147456.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000155648.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000163840.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000172032.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000180224.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000188416.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21001/production_000196608.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000000000.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000008192.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000016384.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000024576.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000032768.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000040960.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000049152.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000057344.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000065536.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000073728.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000081920.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000090112.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000098304.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000106496.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000114688.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000122880.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000131072.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000139264.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000147456.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000155648.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000163840.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000172032.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000180224.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000188416.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21002/production_000196608.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000000000.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000008192.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000016384.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000024576.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000032768.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000040960.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000049152.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000057344.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000065536.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000073728.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000081920.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000090112.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000098304.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000106496.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000114688.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000122880.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000131072.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000139264.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000147456.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000155648.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000163840.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000172032.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000180224.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000188416.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21003/production_000196608.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000000000.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000008192.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000016384.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000024576.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000032768.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000040960.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000049152.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000057344.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000065536.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000073728.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000081920.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000090112.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000098304.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000106496.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000114688.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000122880.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000131072.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000139264.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000147456.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000155648.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000163840.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000172032.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000180224.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000188416.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21004/production_000196608.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000000000.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000008192.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000016384.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000024576.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000032768.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000040960.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000049152.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000057344.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000065536.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000073728.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000081920.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000090112.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000098304.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000106496.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000114688.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000122880.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000131072.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000139264.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000147456.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000155648.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000163840.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000172032.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000180224.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000188416.npz"
+    },
+    {
+      "path": "data/full_v1/baseline_L64_s21005/production_000196608.npz"
+    }
+  ],
+  "records": [
+    {
+      "candidate": "power",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 2048,
+      "retained_total": 231863,
+      "seed_fits": [
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46402,
+          "status": "ok",
+          "alpha": 1.088905565063911,
+          "lambda": 0.0,
+          "log_likelihood": -305554.6157570382,
+          "KS": 0.007865353633905614,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 2.1316282072803006e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46447,
+          "status": "ok",
+          "alpha": 1.096541446279276,
+          "lambda": 0.0,
+          "log_likelihood": -305088.54134944,
+          "KS": 0.008796083189045678,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 3.863576125695545e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46489,
+          "status": "ok",
+          "alpha": 1.0868805932158638,
+          "lambda": 0.0,
+          "log_likelihood": -306329.18552013603,
+          "KS": 0.008802803548379257,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.2434497875801753e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46252,
+          "status": "ok",
+          "alpha": 1.0924826393753246,
+          "lambda": 0.0,
+          "log_likelihood": -304211.7258670359,
+          "KS": 0.009269453585427856,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 2.398081733190338e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46273,
+          "status": "ok",
+          "alpha": 1.0933569158370753,
+          "lambda": 0.0,
+          "log_likelihood": -304262.87179090845,
+          "KS": 0.010420895740742786,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 2.842170943040401e-14,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 1.0916334319542902,
+        "low": 1.0869130307223003,
+        "high": 1.09635383318628,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.009030917939500237,
+        "low": 0.007876994948748408,
+        "high": 0.010184840930252067,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "cutoff",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 2048,
+      "retained_total": 231863,
+      "seed_fits": [
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46402,
+          "status": "ok",
+          "alpha": 1.0470044851269567,
+          "lambda": 0.00014507264683476863,
+          "log_likelihood": -305526.14903116773,
+          "KS": 0.0030478018826159414,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 7.2650774285421e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46447,
+          "status": "ok",
+          "alpha": 1.0500972058514606,
+          "lambda": 0.00016184362477728934,
+          "log_likelihood": -305053.50153733435,
+          "KS": 0.0030533736168044667,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 6.138173525016555e-09,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46489,
+          "status": "ok",
+          "alpha": 1.0372215539816858,
+          "lambda": 0.00017194854008978399,
+          "log_likelihood": -306289.2431452792,
+          "KS": 0.0028664360344529127,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.8466561613195154e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46252,
+          "status": "ok",
+          "alpha": 1.0380137248246832,
+          "lambda": 0.00018955814711719616,
+          "log_likelihood": -304163.9056601598,
+          "KS": 0.0021498198639678945,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.4098500145109938e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46273,
+          "status": "ok",
+          "alpha": 1.037986216295746,
+          "lambda": 0.00019285499229297916,
+          "log_likelihood": -304213.433546458,
+          "KS": 0.0023250732158348053,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 6.20145312879572e-09,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 1.0420646372161064,
+        "low": 1.034577930469361,
+        "high": 1.0495513439628519,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.00017225559022240346,
+        "low": 0.0001476473763464963,
+        "high": 0.00019686380409831062,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.002688500922735204,
+        "low": 0.0021631188776880432,
+        "high": 0.003213882967782365,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.00086587464905274,
+        "low": 0.0006291220847892598,
+        "high": 0.0011026272133162203,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "exponential",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 2048,
+      "retained_total": 231863,
+      "seed_fits": [
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46402,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0028990168840689716,
+          "log_likelihood": -316662.60683373484,
+          "KS": 0.21346874059034915,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.0769740654836824e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46447,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002948436424369875,
+          "log_likelihood": -316257.7161477599,
+          "KS": 0.21279439809130243,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 7.654718525706983e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46489,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002902725966544803,
+          "log_likelihood": -317202.5915056992,
+          "KS": 0.21084134802089158,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.0497100411122062e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46252,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002941750472227815,
+          "log_likelihood": -315025.4654123327,
+          "KS": 0.2097810685241725,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 8.01627098034885e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 2048,
+          "n": 46273,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.00294818121919856,
+          "log_likelihood": -315076.5945091897,
+          "KS": 0.21018494077676425,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 7.668213286571302e-11,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0029280221932820047,
+        "low": 0.0028970253263980814,
+        "high": 0.002959019060165928,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.21141409920069595,
+        "low": 0.20938972609181547,
+        "high": 0.21343847230957644,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": -0.23624878627584187,
+        "low": -0.24044793679902995,
+        "high": -0.23204963575265378,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "power",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 4096,
+      "retained_total": 245477,
+      "seed_fits": [
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49141,
+          "status": "ok",
+          "alpha": 1.1404236348695,
+          "lambda": 0.0,
+          "log_likelihood": -337239.4945484439,
+          "KS": 0.03129337661648346,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 5.773159728050814e-15,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49209,
+          "status": "ok",
+          "alpha": 1.1454742050925804,
+          "lambda": 0.0,
+          "log_likelihood": -336992.8182982402,
+          "KS": 0.02968257050567269,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 5.329070518200751e-15,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49112,
+          "status": "ok",
+          "alpha": 1.1415294090106132,
+          "lambda": 0.0,
+          "log_likelihood": -336884.74081304815,
+          "KS": 0.03319153176831857,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.1546319456101628e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 48968,
+          "status": "ok",
+          "alpha": 1.1430718352079714,
+          "lambda": 0.0,
+          "log_likelihood": -335680.2466283619,
+          "KS": 0.03158821618963492,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 7.105427357601002e-15,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49047,
+          "status": "ok",
+          "alpha": 1.1425646588755254,
+          "lambda": 0.0,
+          "log_likelihood": -336293.19266369933,
+          "KS": 0.029384523291407727,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 9.325873406851315e-15,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 1.142612748611238,
+        "low": 1.1402595701107543,
+        "high": 1.1449659271117218,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.031028043674303472,
+        "low": 0.029106838668171667,
+        "high": 0.03294924868043528,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "cutoff",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 4096,
+      "retained_total": 245477,
+      "seed_fits": [
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49141,
+          "status": "ok",
+          "alpha": 1.007178901545957,
+          "lambda": 0.00031058187437527817,
+          "log_likelihood": -336749.0464559827,
+          "KS": 0.009243170951614754,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 2.3115278580121412e-09,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49209,
+          "status": "ok",
+          "alpha": 1.0173094004863983,
+          "lambda": 0.00029968695046512475,
+          "log_likelihood": -336536.81915332354,
+          "KS": 0.007526399797961547,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 1.2737131349638275e-09,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49112,
+          "status": "ok",
+          "alpha": 0.9991903333984322,
+          "lambda": 0.00033337347720781464,
+          "log_likelihood": -336327.86927427904,
+          "KS": 0.009083383603725625,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 8.565342213273652e-09,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 48968,
+          "status": "ok",
+          "alpha": 1.010414066873734,
+          "lambda": 0.0003099863954185106,
+          "log_likelihood": -335195.429456247,
+          "KS": 0.005678275013001111,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 5.769980049308288e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49047,
+          "status": "ok",
+          "alpha": 1.0111175681370588,
+          "lambda": 0.0003068476597584357,
+          "log_likelihood": -335816.17069999804,
+          "KS": 0.005593806238815446,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 1.8948145275032857e-09,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 1.009042054088316,
+        "low": 1.0008276482833947,
+        "high": 1.0172564598932374,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.00031209527144503276,
+        "low": 0.00029637701620057486,
+        "high": 0.0003278135266894907,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.007425007121023697,
+        "low": 0.005232618886020511,
+        "high": 0.009617395356026882,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.01004246415990917,
+        "low": 0.009079330058312225,
+        "high": 0.011005598261506115,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "exponential",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 4096,
+      "retained_total": 245477,
+      "seed_fits": [
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49141,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002097257100108638,
+          "log_likelihood": -352109.5702041269,
+          "KS": 0.2482158004940554,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.3100631690576847e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49209,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0021111437961450156,
+          "log_likelihood": -352276.5212000876,
+          "KS": 0.24940002868903738,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.1018963519404679e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49112,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002121655190930623,
+          "log_likelihood": -351341.4272395316,
+          "KS": 0.24448650644870146,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 9.249304933067748e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 48968,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002108890790543095,
+          "log_likelihood": -350602.8347832479,
+          "KS": 0.24596578263630345,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.1463052729254741e-14,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 4096,
+          "n": 49047,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.002103886933081704,
+          "log_likelihood": -351283.38422083016,
+          "KS": 0.24613137765636178,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.2170819907453279e-14,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0021085667621618155,
+        "low": 0.002097325376472082,
+        "high": 0.002119808147851549,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.24683989918489185,
+        "low": 0.24441532111499822,
+        "high": 0.24926447725478548,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": -0.3035840160683626,
+        "low": -0.31094534341869406,
+        "high": -0.29622268871803115,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "power",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 8192,
+      "retained_total": 250246,
+      "seed_fits": [
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50106,
+          "status": "ok",
+          "alpha": 1.200798773316485,
+          "lambda": 0.0,
+          "log_likelihood": -351104.38418160577,
+          "KS": 0.054719569455801476,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.2205791932728971e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50155,
+          "status": "ok",
+          "alpha": 1.20539173896962,
+          "lambda": 0.0,
+          "log_likelihood": -350609.0118904264,
+          "KS": 0.05191321885408451,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.3950174349020017e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50077,
+          "status": "ok",
+          "alpha": 1.2017298627397048,
+          "lambda": 0.0,
+          "log_likelihood": -350731.43363943696,
+          "KS": 0.05582464799218567,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.2564616014287822e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49912,
+          "status": "ok",
+          "alpha": 1.2033396056550942,
+          "lambda": 0.0,
+          "log_likelihood": -349283.2774206302,
+          "KS": 0.053509751786156246,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.3178347302300608e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "power",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49996,
+          "status": "ok",
+          "alpha": 1.202873884451067,
+          "lambda": 0.0,
+          "log_likelihood": -349955.8845454955,
+          "KS": 0.05252063539316287,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.3001155707570433e-11,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 1.2028267730263942,
+        "low": 1.2006618345405546,
+        "high": 1.2049917115122337,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.053697564696278156,
+        "low": 0.05171738276908733,
+        "high": 0.055677746623468985,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "cutoff",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 8192,
+      "retained_total": 250246,
+      "seed_fits": [
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50106,
+          "status": "ok",
+          "alpha": 0.994902914691424,
+          "lambda": 0.0003481054912301058,
+          "log_likelihood": -349377.82020343636,
+          "KS": 0.011342985395123795,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 3.713213114764358e-08,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50155,
+          "status": "ok",
+          "alpha": 1.0022795862292644,
+          "lambda": 0.00034505310272039556,
+          "log_likelihood": -348923.757913323,
+          "KS": 0.010233251366563612,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 2.1655655046970423e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50077,
+          "status": "ok",
+          "alpha": 0.9907393772116302,
+          "lambda": 0.00035865129109889914,
+          "log_likelihood": -348928.7823646113,
+          "KS": 0.010496395443867046,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.0408474082623798e-10,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49912,
+          "status": "ok",
+          "alpha": 0.9977885799277999,
+          "lambda": 0.00034877532774353496,
+          "log_likelihood": -347569.2381548042,
+          "KS": 0.00802281247826575,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+          "projected_gradient_inf": 1.701411855847823e-08,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "cutoff",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49996,
+          "status": "ok",
+          "alpha": 0.9975298912060552,
+          "lambda": 0.0003481204719414333,
+          "log_likelihood": -348241.9436654268,
+          "KS": 0.008185993009456882,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 1.1248335596292236e-10,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 0.9966480698532347,
+        "low": 0.991389268654574,
+        "high": 1.0019068710518955,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.00034974113694687375,
+        "low": 0.00034330112505517256,
+        "high": 0.00035618114883857494,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.009656287538655417,
+        "low": 0.00782366288009425,
+        "high": 0.011488912197216584,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": 0.03453590400588896,
+        "low": 0.03343941049795225,
+        "high": 0.03563239751382567,
+        "n": 5
+      }
+    },
+    {
+      "candidate": "exponential",
+      "L": 64,
+      "xmin": 16,
+      "xmax": 8192,
+      "retained_total": 250246,
+      "seed_fits": [
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50106,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0017500252698007105,
+          "log_likelihood": -368184.69237302174,
+          "KS": 0.27018730850132394,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 4.7683121340291734e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50155,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.001767747576161029,
+          "log_likelihood": -368039.45012088126,
+          "KS": 0.27226636573650176,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 4.8478554504072235e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 50077,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0017686633078044273,
+          "log_likelihood": -367441.1515166449,
+          "KS": 0.26829703948215233,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 4.8519951945102946e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49912,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0017630087374936494,
+          "log_likelihood": -366390.2709102088,
+          "KS": 0.270186003600199,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 4.826239408117772e-11,
+          "unsuccessful_starts": 0
+        },
+        {
+          "model": "exponential",
+          "xmin": 16,
+          "xmax": 8192,
+          "n": 49996,
+          "status": "ok",
+          "alpha": 0.0,
+          "lambda": 0.0017598987391619382,
+          "log_likelihood": -367095.15389054327,
+          "KS": 0.2699186828010141,
+          "at_boundary": false,
+          "optimizer_message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "projected_gradient_inf": 4.8122131279804137e-11,
+          "unsuccessful_starts": 0
+        }
+      ],
+      "any_boundary_fit": false,
+      "status": "ok",
+      "alpha": {
+        "mean": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "n": 5
+      },
+      "lambda": {
+        "mean": 0.0017618687260843508,
+        "low": 0.0017525319587406996,
+        "high": 0.001771205493428002,
+        "n": 5
+      },
+      "KS": {
+        "mean": 0.2701710800242382,
+        "low": 0.26841878892644533,
+        "high": 0.271923371122031,
+        "n": 5
+      },
+      "vs_power_log_score_per_retained": {
+        "mean": -0.3415302614406035,
+        "low": -0.34777470216123996,
+        "high": -0.33528582071996704,
+        "n": 5
+      }
+    }
+  ],
+  "command": "python3 scripts/upper_limit_sensitivity.py",
+  "scope": "Post-review diagnostic, same five L=64 baseline primary chains; no new independent samples, no changes to primary fits, no calibrated model-selection claim."
+}

@@ -1,0 +1,39 @@
+\chapter{Computation and experimental design}\label{sec:methods}
+\section{Independent implementations and validation}\label{sec:validation}
+A reference simulation scans the grid and performs one elementary toppling at a time. The faster algorithm keeps a queue of unstable sites, performs $\lfloor h(x)/4\rfloor$ consecutive legal topplings at each visit and adds that count to the odometer. Each site has at most one pending place in the queue, avoiding repeated scans of stable sites. Both Python and C versions were compared with the reference.
+
+Mass changes were checked against the grains added and lost after every event. Height frequencies provided an independent check of the actual grid mass every 128 added grains, supplemented by direct sums of all site heights during each run. A separate array-based simulation checked the actual mass after every event in validation runs. Heights and counts use signed 64-bit integers, and repeated batch locations receive every grain assigned to them.
+
+The checks cover all $256\times4=1,024$ stable $2\times2$ additions and 1,000 bounded random configurations for each of the Python and C implementations. Forward, reverse and random legal toppling orders give identical results. Further checks include rectangular and degenerate grids, repeated topplings, all four observables and the corrected handout example. Periodic connections, dissipation and distances on the cylinder were checked, as were biased-input probabilities and frequencies, and batch odometer sums and area unions. Exact enumeration gives 192 recurrent $2\times2$ states and verifies the uniform invariant measure for uniform and unequal positive input probabilities, including four successive additions.
+
+Known discrete distributions, sparse samples and autoregressive series were used to check the statistical calculations. Fits compare several initial parameter choices and check the best converged solution against an independent projected-gradient calculation. All 144 aggregate fits passed these checks.
+
+\section{Profiling and performance}\label{sec:performance}
+Profiling identified repeated neighbour construction as a major cost, which was removed by storing the neighbour lists. A later $L=64$ profile placed most time in the active-site queue. Implementing this algorithm in C, with Python generating the input sites, reduced that cost. Observables are calculated as sites topple. Reach calculations depend on the number of toppled sites and input locations; each batch here has four locations.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/performance_table}
+\caption{Stabilization times for the same $L=16$ calculation: \R{benchmarkEvents} predetermined inputs from an all-three grid, giving \R{benchmarkTopples} elementary topplings. Each implementation first completes one untimed run. Each of five timing samples then repeats complete calculations for at least 0.2\,s, resetting the grid each time; reported times are per calculation. All methods give identical $S,A,D,\ell$ and final grids. Compilation (\R{compileSeconds}\,s) and initial loading/warm-up (\R{warmupSeconds}\,s) are timed separately. Ranges are minimum to maximum; speed ratios use the Python scan median. Times exclude generating input sites and reading or writing data.}
+\label{tab:performance}
+\end{table}
+
+The Python queue is \R{queueSpeed} times faster than the scan (Table~\ref{tab:performance}), combining active-site selection, consecutive topplings and stored neighbour lists. Processing the full input sequence in C is faster still than calling the C routine after each event, because it reduces calls between languages. Each timing sample lasts at least 0.2 seconds, although the C time per complete calculation is below one millisecond. The environment used Python 3.12.2, NumPy 1.26.4, SciPy 1.13.0, Matplotlib 3.8.4 and Apple Clang 17 (arm64 macOS, eight logical CPUs).
+
+\section{Simulation lengths and initial conditions}\label{sec:design}
+The preliminary runs used $L=64$ for open uniform, open biased and cylindrical input, each starting from empty, random stable and all-three grids with independent random-number sequences. They followed $60L^2$ grains in the uniform and cylindrical cases and $100L^2$ under bias. A separate equilibrated, matched batch comparison checked 81,920 subsequent grains. Based on these runs, we used five seeds per condition, baseline sizes $L=8,16,32,64$, extension sizes $L=32,64$, and 200,000 measured grains per seed. Burn-in is $20L^2$ for baseline and cylinder, and $40L^2$ for bias. Batches start from the matched baseline's grid after burn-in.
+
+The 50 main runs contain \R{productionGrains} measured grains and \R{productionEvents} events, plus 2,080,000 burn-in grains. Each batch run has 50,000 events and uses the same initial grid and subsequent input sites as its single-grain control. Those two million batch grains form paired comparisons. Preliminary runs, main runs, toppling-order checks, the 100 independent $L=32$ ensemble chains and block resampling use independent random-number sequences. The main simulations took \R{productionWall}\,s, including \R{kernelSeconds}\,s in simulation calculations and \R{ioSeconds}\,s in data storage. These times include burn-in.
+
+\section{Uncertainty and distribution fitting}\label{sec:statistics}
+We estimate primary 95\% Student-$t$ intervals from five independent seed estimates, with four degrees of freedom. Each seed is one replicate, which accounts for dependence within a run but gives limited precision with five replicates. Independent extension differences use Welch intervals; batch comparisons use exact pairing. The time-series comparison uses 24 complete contiguous blocks of 8,192 grains, covering 196,608 grains. The remaining grains are retained in all-event summaries. Block lengths of 4,096 and 16,384 grains and 200 block-bootstrap resamples assess sensitivity. Autocorrelation is calculated separately for height, topplings, loss, dissipation indicators and height frequencies. The initial-positive-pair time estimate uses a finite lag range and has a floor of one, which short-lag anticorrelation can reach.
+
+Fits use the exact counts of raw integer observations, with normalized likelihood
+\begin{equation}
+ p(x\mid\alpha,\lambda)=\frac{x^{-\alpha}e^{-\lambda x}}
+ {\sum_{n=x_{\min}}^{x_{\max}}n^{-\alpha}e^{-\lambda n}}.
+ \label{eq:fit}
+\end{equation}
+The candidates are power ($\lambda=0$), cutoff power and exponential ($\alpha=0$), fitted to identical observations and support. Numerical bounds are $-10\leq\alpha\leq10$ and $0\leq\lambda x_{\max}\leq10^5$; no fitted free parameter reaches them. Finite support allows negative effective slopes. Each seed must retain at least 1,000 observations. The fixed lower limits are $(16,8,1,3)$ for $(S,A,D,\ell)$; sensitivity checks halve and double them, with a minimum of one. For $S$, the upper fitting limit $L^2$ selects an intermediate range. The other upper limits, $L^2$, $3L^2+1$ and $2L-1$, are physical bounds. We record observed maxima separately from these fitting limits.
+
+Parameter intervals are calculated across the five seed fits. KS distances describe discrepancies between fitted and empirical CDFs. Marginal log-score differences and their block sensitivity use the fitting data, so these comparisons are descriptive; the cutoff model also has an extra parameter. For logarithmic displays, counts are divided by bin width and sample count. Fits use the original integer observations, with each size and model analysed separately.

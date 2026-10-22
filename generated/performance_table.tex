@@ -1,0 +1,10 @@
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Implementation & Median (ms) & Range (ms) & Speed ratio \\
+\midrule
+Elementary scan, Python & 552.216 & [531.345, 562.245] & 1.0 \\
+Bulk queue, Python & 107.030 & [106.292, 107.353] & 5.2 \\
+C queue, one event per call & 95.477 & [94.000, 107.416] & 5.8 \\
+C queue, full input sequence & 0.167 & [0.166, 0.205] & 3298.7 \\
+\bottomrule
+\end{tabular}

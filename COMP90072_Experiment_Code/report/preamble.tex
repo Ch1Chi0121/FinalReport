@@ -1,0 +1,41 @@
+% SuzieSheehy/FinalReport: A4, report class, 2 cm margins and chapter numbering.
+% Use the supported 11pt option; 10.5pt is not a standard report-class size.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath,amssymb,graphicx,booktabs,array,tabularx}
+\usepackage{microtype,placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage[font=footnotesize,labelfont=bf,skip=5pt]{caption}
+\pagestyle{plain}
+\setcounter{tocdepth}{1}
+\numberwithin{equation}{chapter}
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{0pt}
+\linespread{0.94}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.8}
+% Draft-style two-line chapter headings, with a modestly shorter top gap.
+\makeatletter
+\def\@makechapterhead#1{\vspace*{30\p@}{\parindent\z@\raggedright\normalfont
+  \ifnum\c@secnumdepth>\m@ne\huge\bfseries\@chapapp\space\thechapter\par\nobreak\vskip20\p@\fi
+  \interlinepenalty\@M\Huge\bfseries #1\par\nobreak\vskip30\p@}}
+% Moderate section spacing; the chapter design and page starts stay unchanged.
+\renewcommand\section{\@startsection{section}{1}{\z@}{-2.5ex \@plus -1ex \@minus -.2ex}{1.5ex \@plus .2ex}{\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-2ex \@plus -1ex \@minus -.2ex}{1ex \@plus .2ex}{\normalfont\large\bfseries}}
+\makeatother
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\R}[1]{\csname R@#1\endcsname}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\ReportAuthor}{Chia-Chi Hsu}
+\newcommand{\ReportDate}{21 October 2026}
+\input{generated/numbers}
+\hypersetup{
+ pdftitle={Self-organized criticality in the Abelian sandpile: driving, dissipation, and avalanche statistics},
+ pdfsubject={COMP90072 Complex Systems project},pdfauthor={\ReportAuthor}}

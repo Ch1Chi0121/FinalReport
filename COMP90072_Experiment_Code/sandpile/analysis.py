@@ -11,7 +11,7 @@ import time
 import numpy as np
 from scipy.stats import spearmanr, t
 from .experiment import read_events
-from .io import atomic_json, atomic_npz, check_chunk, now
+from .io import atomic_json, atomic_npz, sha256, now
 from .model import Graph, driving, benchmark
 from .statistics import (
     mean_interval,
@@ -73,7 +73,7 @@ def independent_difference(a, b):
 def analyse(config_file):
     """Validate primary raw records and produce the report's analysis files.
 
-    For each condition, check saved chunks, mass, the finite-window potential identity
+    For each condition, check chunk hashes, mass, the finite-window potential identity
     and observable bounds. Compute per-seed summaries first, then seed intervals.
     Baseline distributions keep zero-loss avalanches; positive-loss fits exclude D=0.
     Batch controls are compared pathwise with grouped baseline records.
@@ -131,11 +131,12 @@ def analyse(config_file):
                 ):
                     raise ValueError(f"Incomplete production: {path}")
                 for chunk in meta["chunks"]:
-                    check_chunk(path, chunk)
+                    if sha256(path / chunk["file"]) != chunk["sha256"]:
+                        raise ArithmeticError("Raw chunk hash mismatch")
                     inputs.append(
                         {
                             "id": str(path / chunk["file"]),
-                            "bytes": chunk["bytes"],
+                            "sha256": chunk["sha256"],
                             "model": model,
                             "L": L,
                             "seed": seed,
@@ -478,7 +479,7 @@ def analyse(config_file):
             "utc": now(),
             "seconds": time.perf_counter() - start,
             "command": f"python3 -m sandpile.analysis {config_file}",
-            "config": config,
+            "config_sha256": sha256(config_file),
             "settings": settings,
             "fit_status_counts": {
                 s: sum(f["status"] == s for f in fits)

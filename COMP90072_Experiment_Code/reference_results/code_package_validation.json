@@ -1,0 +1,274 @@
+{
+  "status": "passed",
+  "date_melbourne": "2026-10-22",
+  "python": "3.12.2",
+  "validation_directory": "tmp/code_handoff_validation/COMP90072_Experiment_Code",
+  "command": "python run_project.py all",
+  "pdf_compilation_executed": false,
+  "stages": [
+    {
+      "stage": "smoke",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/smoke.py",
+        "--skip-pdf"
+      ],
+      "started_utc": "2026-10-21T14:09:41.215565+00:00",
+      "finished_utc": "2026-10-21T14:09:44.136220+00:00",
+      "wall_seconds": 2.92065637500491,
+      "status": "passed",
+      "log": "logs/workflow_smoke.txt"
+    },
+    {
+      "stage": "check",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "started_utc": "2026-10-21T14:09:44.240215+00:00",
+      "finished_utc": "2026-10-21T14:09:47.468879+00:00",
+      "wall_seconds": 3.228664291993482,
+      "status": "passed",
+      "log": "logs/workflow_check.txt"
+    },
+    {
+      "stage": "benchmark",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/benchmark.py"
+      ],
+      "started_utc": "2026-10-21T14:09:47.469639+00:00",
+      "finished_utc": "2026-10-21T14:09:54.759044+00:00",
+      "wall_seconds": 7.289423792011803,
+      "status": "passed",
+      "log": "logs/workflow_benchmark.txt"
+    },
+    {
+      "stage": "pilot",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/pilot.py"
+      ],
+      "started_utc": "2026-10-21T14:09:54.759706+00:00",
+      "finished_utc": "2026-10-21T14:10:11.761315+00:00",
+      "wall_seconds": 17.001670332974754,
+      "status": "passed",
+      "log": "logs/workflow_pilot.txt"
+    },
+    {
+      "stage": "production",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.experiment",
+        "configs/full.json"
+      ],
+      "started_utc": "2026-10-21T14:10:11.762198+00:00",
+      "finished_utc": "2026-10-21T14:10:55.907505+00:00",
+      "wall_seconds": 44.14546220898046,
+      "status": "passed",
+      "log": "logs/workflow_production.txt"
+    },
+    {
+      "stage": "ensemble",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/ensemble.py"
+      ],
+      "started_utc": "2026-10-21T14:10:55.910382+00:00",
+      "finished_utc": "2026-10-21T14:11:01.811391+00:00",
+      "wall_seconds": 5.900988041976234,
+      "status": "passed",
+      "log": "logs/workflow_ensemble.txt"
+    },
+    {
+      "stage": "confirmation",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/confirmation.py"
+      ],
+      "started_utc": "2026-10-21T14:11:01.812903+00:00",
+      "finished_utc": "2026-10-21T14:12:28.843723+00:00",
+      "wall_seconds": 87.03105833299924,
+      "status": "passed",
+      "log": "logs/workflow_confirmation.txt"
+    },
+    {
+      "stage": "analysis",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.analysis",
+        "configs/full.json"
+      ],
+      "started_utc": "2026-10-21T14:12:28.846247+00:00",
+      "finished_utc": "2026-10-21T14:12:38.483665+00:00",
+      "wall_seconds": 9.637423417007085,
+      "status": "passed",
+      "log": "logs/workflow_analysis.txt"
+    },
+    {
+      "stage": "sensitivity",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/upper_limit_sensitivity.py"
+      ],
+      "started_utc": "2026-10-21T14:12:38.484800+00:00",
+      "finished_utc": "2026-10-21T14:12:39.538086+00:00",
+      "wall_seconds": 1.053278917010175,
+      "status": "passed",
+      "log": "logs/workflow_sensitivity.txt"
+    },
+    {
+      "stage": "figures",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.plots"
+      ],
+      "started_utc": "2026-10-21T14:12:39.538763+00:00",
+      "finished_utc": "2026-10-21T14:12:44.322426+00:00",
+      "wall_seconds": 4.783657457999652,
+      "status": "passed",
+      "log": "logs/workflow_figures.txt"
+    },
+    {
+      "stage": "tables",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.report_artifacts"
+      ],
+      "started_utc": "2026-10-21T14:12:44.323400+00:00",
+      "finished_utc": "2026-10-21T14:12:44.421963+00:00",
+      "wall_seconds": 0.09854866701061837,
+      "status": "passed",
+      "log": "logs/workflow_tables.txt"
+    },
+    {
+      "stage": "manifest",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/manifest.py"
+      ],
+      "started_utc": "2026-10-21T14:12:44.422619+00:00",
+      "finished_utc": "2026-10-21T14:12:46.725499+00:00",
+      "wall_seconds": 2.3028560840175487,
+      "status": "passed",
+      "log": "logs/workflow_manifest.txt"
+    },
+    {
+      "stage": "verify",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "scripts/manifest.py",
+        "--verify"
+      ],
+      "started_utc": "2026-10-21T14:12:46.726768+00:00",
+      "finished_utc": "2026-10-21T14:12:48.880500+00:00",
+      "wall_seconds": 2.1537213750125375,
+      "status": "passed",
+      "log": "logs/workflow_verify.txt"
+    },
+    {
+      "stage": "tables",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.report_artifacts"
+      ],
+      "started_utc": "2026-10-21T14:17:52.192085+00:00",
+      "finished_utc": "2026-10-21T14:17:52.310696+00:00",
+      "wall_seconds": 0.11859591701067984,
+      "status": "passed",
+      "log": "logs/workflow_tables.txt"
+    },
+    {
+      "stage": "production",
+      "command": [
+        "/Users/chachihsu/Complex System/.venv/bin/python",
+        "-m",
+        "sandpile.experiment",
+        "configs/full.json"
+      ],
+      "started_utc": "2026-10-21T14:18:34.896438+00:00",
+      "finished_utc": "2026-10-21T14:18:35.263944+00:00",
+      "wall_seconds": 0.3674907910171896,
+      "status": "passed",
+      "log": "logs/workflow_production.txt"
+    }
+  ],
+  "comparison": {
+    "status": "passed",
+    "comparison": "Fresh code-package execution against retained original experiments",
+    "cohort_run_counts": {
+      "confirmation_v1": 20,
+      "ensemble_v1": 100,
+      "full_v1": 50,
+      "pilot_v1": 11
+    },
+    "identical_event_chunks": 4765,
+    "identical_initial_start_checkpoint_files": 543,
+    "identical_statistical_json_artifacts": [
+      "fits.json",
+      "correlations.json",
+      "coupling.json",
+      "ensemble.json",
+      "extensions.json",
+      "stationarity.json",
+      "benchmarks.json",
+      "boundary.json",
+      "acf.json",
+      "upper_limit_sensitivity.json"
+    ],
+    "unchanged_numeric_macros": 493,
+    "changed_numeric_macros": [
+      "kernelSeconds",
+      "ioSeconds",
+      "productionWall",
+      "compileSeconds",
+      "warmupSeconds",
+      "queueSpeed"
+    ],
+    "changes_are_measured_runtimes_only": true,
+    "primary_measured_grains": 10000000,
+    "primary_events": 8500000,
+    "validation_source_files_match_delivery": true,
+    "identical_plot_files": [
+      "batch.png",
+      "distributions.png",
+      "supplement_pmf.png",
+      "supplement_size_loss.png",
+      "sampling.png",
+      "baseline.png",
+      "fits.png",
+      "pilot.png",
+      "correlations.png",
+      "cylinder.png",
+      "driving.png"
+    ]
+  },
+  "completed_resumption": {
+    "status": "passed",
+    "command": "python run_project.py production",
+    "production_timing_unchanged": true
+  },
+  "unit_test_methods": 22,
+  "smoke": {
+    "status": "passed",
+    "fresh_runs_per_execution": 8,
+    "executions": 2,
+    "pdf_compiled": false
+  },
+  "notes": [
+    "Numerical source files and the runner were checked against the extracted, exercised copy.",
+    "The current interval formatter was synchronized and the tables rerun; raw data and fits were unchanged.",
+    "Runtime macros and measured benchmark table entries vary with the new execution.",
+    "Report sources are included; PDF compilation was not rerun and the PDF is a separate deliverable."
+  ]
+}

@@ -1,1 +1,1 @@
-Checked 5672 file lengths and NPZ archives.
+Verified 5679 input/artifact hashes; no mismatches.

@@ -5,7 +5,7 @@ import time
 import numpy as np
 from . import fast
 from .model import Graph, driving
-from .io import atomic_json, atomic_npz, check_sources, check_chunk, now
+from .io import atomic_json, atomic_npz, core_hash, now, sha256
 
 MODEL_ID = {"baseline": 0, "biased": 1, "cylinder": 2, "batch": 3}
 
@@ -19,7 +19,7 @@ def read_events(path, stage="production"):
         raise ValueError(f"No {stage} data at {path}")
     arrays = {k: [] for k in ["events", "sources", "frequency_event", "frequencies"]}
     for entry in selected:
-        with np.load(check_chunk(path, entry)) as data:
+        with np.load(path / entry["file"]) as data:
             for k in arrays:
                 arrays[k].append(data[k])
     return {k: np.concatenate(v, axis=0) for k, v in arrays.items()}
@@ -57,7 +57,6 @@ def run_chain(
     """
     path = Path(path)
     path.mkdir(parents=True, exist_ok=True)
-    check_sources(path.parent)
     graph = Graph(L, L, "cylinder" if model == "cylinder" else "open")
     m = 4 if model == "batch" else 1
     eta = 0.9 if model == "biased" else 0
@@ -94,7 +93,7 @@ def run_chain(
     # Resume only the exact configuration and source version stored with this run.
     if checkpoint_path.exists():
         meta = json.loads(metadata_path.read_text())
-        if meta["config"] != config or meta.get("schema") != "sandpile-events-v2":
+        if meta["config"] != config or meta["core_hash"] != core_hash():
             raise ValueError("Refusing incompatible checkpoint; use a new data version")
         if meta["status"] == "complete":
             return meta
@@ -123,8 +122,9 @@ def run_chain(
         stage = "burn" if burn_grains else "production"
         done = 0
         meta = {
-            "schema": "sandpile-events-v2",
+            "schema": "sandpile-events-v1",
             "config": config,
+            "core_hash": core_hash(),
             "status": "running",
             "started_utc": now(),
             "rng": "PCG64/SeedSequence",
@@ -258,7 +258,7 @@ def run_chain(
         meta["chunks"].append(
             {
                 "file": name,
-                "bytes": (path / name).stat().st_size,
+                "sha256": sha256(path / name),
                 "stage": stage,
                 "event_start": done + 1,
                 "events": count,

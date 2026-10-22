@@ -1,6 +1,7 @@
-"""Package the source tree without generated runs, binaries or environments."""
+"""Package a source handoff, excluding generated runs and local environments."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import zipfile
@@ -18,23 +19,27 @@ EXCLUDED = {
 }
 
 
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("source", type=Path)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("source", type=Path, help="root of the readable code handoff")
+    parser.add_argument(
+        "--output", type=Path, required=True, help="ZIP outside the source directory"
+    )
     args = parser.parse_args()
-    source, target = args.source.resolve(), args.output.resolve()
+    source = args.source.resolve()
+    target = args.output.resolve()
     if target.is_relative_to(source):
-        raise ValueError("Write the ZIP outside the source folder")
+        raise ValueError("Write the archive outside its source directory")
     files = []
-    for path in sorted(source.rglob("*")):
+    for path in source.rglob("*"):
         relative = path.relative_to(source)
         if not path.is_file() or any(part in EXCLUDED for part in relative.parts):
             continue
-        if (
-            relative.as_posix().startswith("report/generated/")
-            or relative.as_posix() == "FILES.txt"
-        ):
+        if relative.as_posix().startswith("report/generated/"):
             continue
         if path.suffix in {
             ".pyc",
@@ -47,37 +52,47 @@ def main():
             ".xdv",
         }:
             continue
-        files.append(path)
-    listing = source / "FILES.txt"
-    listing.write_text(
+        if relative.as_posix() != "FILES.sha256":
+            files.append(path)
+    files.sort()
+    checksums = source / "FILES.sha256"
+    checksums.write_text(
         "".join(
-            f"{p.relative_to(source).as_posix()} ({p.stat().st_size} bytes)\n"
-            for p in files
+            f"{digest(path)}  {path.relative_to(source).as_posix()}\n" for path in files
         )
     )
-    files.append(listing)
+    files.append(checksums)
     target.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for path in files:
-            archive.write(
-                path, "COMP90072_Experiment_Code/" + path.relative_to(source).as_posix()
-            )
+        for path in sorted(files):
+            name = "COMP90072_Experiment_Code/" + path.relative_to(source).as_posix()
+            info = zipfile.ZipInfo(name, date_time=(2026, 10, 22, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            archive.writestr(info, path.read_bytes())
     with zipfile.ZipFile(target) as archive:
         if archive.testzip() is not None:
-            raise ArithmeticError("Damaged ZIP")
+            raise ArithmeticError("ZIP CRC failed")
         for path in files:
             name = "COMP90072_Experiment_Code/" + path.relative_to(source).as_posix()
-            if archive.read(name) != path.read_bytes():
-                raise ArithmeticError(f"ZIP content differs: {name}")
-    record = {
+            if hashlib.sha256(archive.read(name)).hexdigest() != digest(path):
+                raise ArithmeticError(f"Archive copy differs: {path}")
+    metadata = {
         "path": str(args.output),
         "bytes": target.stat().st_size,
+        "sha256": digest(target),
         "files": len(files),
         "zip_crc": "passed",
-        "file_copies": "matched",
+        "raw_event_files_included": False,
+        "per_file_hashes_checked": True,
     }
-    target.with_suffix(".metadata.json").write_text(json.dumps(record, indent=2) + "\n")
-    print(json.dumps(record, indent=2))
+    target.with_suffix(".metadata.json").write_text(
+        json.dumps(metadata, indent=2) + "\n"
+    )
+    target.with_suffix(".zip.sha256").write_text(
+        metadata["sha256"] + "  " + target.name + "\n"
+    )
+    print(json.dumps(metadata, indent=2))
 
 
 if __name__ == "__main__":

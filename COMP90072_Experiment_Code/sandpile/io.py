@@ -1,5 +1,5 @@
-"""Atomic checkpoints, source copies and saved-file checks."""
-import zipfile
+"""Atomic checkpoints, content hashes and environment provenance."""
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -16,32 +16,25 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
-def check_sources(folder):
-    """Keep one copy of the simulation sources alongside a cohort's runs.
+def sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as f:
+        for block in iter(lambda: f.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
-    A resumed cohort must use the same source text. Storing the text itself makes
-    changes inspectable without a separate digest or versioning dependency.
+
+def core_hash():
+    """Fingerprint the four source files that determine stored simulations.
+
+    The hash includes formatting and comments. Editing these files therefore requires
+    a fresh output directory even when a change leaves the numerical rules intact.
+    Analysis and report edits are tracked separately in the final manifest.
     """
-    folder = Path(folder)
-    snapshot = folder / "simulation_sources.json"
-    names = ["model.py", "kernel.c", "fast.py", "experiment.py", "io.py"]
-    current = {name: (ROOT / "sandpile" / name).read_text() for name in names}
-    if snapshot.exists():
-        if json.loads(snapshot.read_text()) != current:
-            raise ValueError("Simulation source changed; use a new data directory")
-    else:
-        atomic_json(snapshot, current)
-
-
-def check_chunk(folder, entry):
-    """Check a saved chunk's length and the NPZ archive's built-in CRCs."""
-    path = Path(folder) / entry["file"]
-    if path.stat().st_size != entry["bytes"]:
-        raise ArithmeticError(f"Chunk length differs from its metadata: {path}")
-    with zipfile.ZipFile(path) as archive:
-        if archive.testzip() is not None:
-            raise ArithmeticError(f"Damaged NPZ archive: {path}")
-    return path
+    names = ["model.py", "kernel.c", "fast.py", "experiment.py"]
+    return hashlib.sha256(
+        b"".join((ROOT / "sandpile" / p).read_bytes() for p in names)
+    ).hexdigest()
 
 
 def atomic_json(path, value):

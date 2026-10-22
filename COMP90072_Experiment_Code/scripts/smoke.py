@@ -19,7 +19,7 @@ from sandpile import fast
 from sandpile.experiment import run_config, read_events
 from sandpile.analysis import metrics_for_run
 from sandpile.statistics import histogram, discrete_fit
-from sandpile.io import atomic_json, now
+from sandpile.io import atomic_json, sha256, now
 from build_report import tectonic_executable
 
 
@@ -31,6 +31,7 @@ def main():
         help="check simulations, statistics and plotting without a TeX installation",
     )
     args = parser.parse_args()
+    pdf_hash = None
     start = time.perf_counter()
     cfg = json.loads(Path("configs/smoke.json").read_text())
     build = fast.build(force=True)
@@ -91,8 +92,7 @@ def main():
             )
             Path("logs/smoke_latex.txt").write_text(result.stdout + result.stderr)
             result.check_returncode()
-            if not (root / "smoke.pdf").is_file():
-                raise FileNotFoundError("Smoke PDF was not produced")
+            pdf_hash = sha256(root / "smoke.pdf")
 
     atomic_json(
         "logs/smoke.json",
@@ -108,6 +108,7 @@ def main():
             "models": checked,
             "compiler": build,
             "summary_and_fit_checks": rows,
+            "temporary_pdf_compiled_sha256": pdf_hash,
             "pdf_compiled": not args.skip_pdf,
             "temporary_outputs": "removed after successful comparison; primary raw data untouched",
         },

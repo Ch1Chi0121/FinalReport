@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "comparison": "Fresh code-package execution against retained original experiments",
+  "cohort_run_counts": {
+    "confirmation_v1": 20,
+    "ensemble_v1": 100,
+    "full_v1": 50,
+    "pilot_v1": 11
+  },
+  "identical_event_chunks": 4765,
+  "identical_initial_start_checkpoint_files": 543,
+  "identical_statistical_json_artifacts": [
+    "fits.json",
+    "correlations.json",
+    "coupling.json",
+    "ensemble.json",
+    "extensions.json",
+    "stationarity.json",
+    "benchmarks.json",
+    "boundary.json",
+    "acf.json",
+    "upper_limit_sensitivity.json"
+  ],
+  "unchanged_numeric_macros": 493,
+  "changed_numeric_macros": [
+    "kernelSeconds",
+    "ioSeconds",
+    "productionWall",
+    "compileSeconds",
+    "warmupSeconds",
+    "queueSpeed"
+  ],
+  "changes_are_measured_runtimes_only": true,
+  "primary_measured_grains": 10000000,
+  "primary_events": 8500000,
+  "validation_source_files_match_delivery": true,
+  "identical_plot_files": [
+    "batch.png",
+    "distributions.png",
+    "supplement_pmf.png",
+    "supplement_size_loss.png",
+    "sampling.png",
+    "baseline.png",
+    "fits.png",
+    "pilot.png",
+    "correlations.png",
+    "cylinder.png",
+    "driving.png"
+  ]
+}

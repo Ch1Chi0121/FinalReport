@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-10T15:17:59.549036+00:00",
+  "config_sha256": "87cd75093672212fb4791bcf5851d0ae1e9d217245b0c8dc708218aa6ace4311",
+  "core_hash": "6fb15b2da6e4bc82a04231716172ecc7a1d12217b73076123c43b115fa01c981",
+  "pilot_max_tau_grains": 1194.6705460191413,
+  "total_grains_including_burn": 12080000,
+  "estimated_kernel_plus_chunk_io_seconds_using_L64_rates": 56.5631103625353,
+  "estimated_bytes_using_L64_rates": 114016851.11979166,
+  "costs": {
+    "baseline": {
+      "seconds_per_grain": 3.683570369616973e-06,
+      "bytes_per_grain": 10.179143608940972
+    },
+    "biased": {
+      "seconds_per_grain": 5.525878236056769e-06,
+      "bytes_per_grain": 10.057412923177083
+    },
+    "cylinder": {
+      "seconds_per_grain": 6.698551435451666e-06,
+      "bytes_per_grain": 10.432944064670139
+    },
+    "batch": {
+      "seconds_per_grain": 3.1439748056527607e-06,
+      "bytes_per_grain": 5.5708251953125
+    }
+  }
+}

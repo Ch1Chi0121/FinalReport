@@ -1,5 +1,6 @@
 """ctypes wrapper for the profiled C queue kernel; Python owns RNG and files."""
 import ctypes
+import hashlib
 import json
 from pathlib import Path
 import platform
@@ -20,11 +21,11 @@ def build(force=False):
     library = folder / (
         "kernel.dylib" if platform.system() == "Darwin" else "kernel.so"
     )
-    saved_source = folder / "kernel_source.c"
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
     meta_path = folder / "compiler.json"
     if not force and library.exists() and meta_path.exists():
         old = json.loads(meta_path.read_text())
-        if saved_source.exists() and saved_source.read_bytes() == source.read_bytes():
+        if old["source_sha256"] == digest:
             return old
     args = [
         "cc",
@@ -43,12 +44,12 @@ def build(force=False):
     meta = {
         "command": args,
         "seconds": time.perf_counter() - start,
+        "source_sha256": digest,
         "compiler": subprocess.check_output(
             ["cc", "--version"], text=True
         ).splitlines()[0],
         "library": str(library),
     }
-    saved_source.write_bytes(source.read_bytes())
     meta_path.write_text(json.dumps(meta, indent=2))
     return meta
 

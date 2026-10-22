@@ -1,6 +1,6 @@
 # Data and API contract
 
-Run commands from the project root. The raw schema is `sandpile-events-v2`.
+Run commands from the project root. The raw schema is `sandpile-events-v1`.
 Grids, events and counts use signed int64. The kernel interface converts source
 indices to int64; compressed event chunks store them as int32 (all retained
 experiments have at most 4,096 sites). No incomplete avalanche is stored as a
@@ -11,14 +11,12 @@ K=-Delta. All transfers are directional, with missing neighbours going to sinks.
 
 Each `data/<cohort>/<run>/metadata.json` contains model, L, seed, stream,
 PCG64/SeedSequence entropy, burn and production grain budgets, initial state,
-batch size, drive parameters, start/finish timestamps, completion status,
-complete grain/event counts, measured kernel/wrapper and chunk-I/O time, and an
-ordered list of chunk filenames, stages, counts and byte lengths.
-
-The cohort's `simulation_sources.json` stores a copy of the files used to run
-it. These are compared directly at resumption. Saved chunks are checked for
-expected length and valid built-in NPZ CRCs. The result index stores file paths,
-lengths, generating commands and report-number analysis keys.
+batch size, drive parameters, core code hash, start/finish timestamps, completion
+status, complete grain/event counts, measured kernel/wrapper and chunk-I/O time,
+and an ordered list of chunk filenames, stage, counts and SHA-256 hashes.
+The four simulation-source files contributing to `core_hash` are listed in
+`sandpile/io.py`. Analysis and report source hashes are recorded separately in
+the final manifest so editorial changes cannot invalidate raw simulations.
 
 `initial.npz` is the initial stable grid and generator state;
 `production_start.npz` is the state after burn-in. `checkpoint.npz` holds stable
@@ -79,7 +77,7 @@ in validation calls rather than for every production event.
   `run_config(path)` applies a frozen JSON configuration.
 - `experiment.read_events(path, stage="production")` reads only the named
   stage and concatenates the event/source/frequency arrays. Analysis first checks
-  status, counts, archive integrity, balance and bounds.
+  status, counts, chunk hashes, balance and bounds.
 - `statistics.discrete_fit` returns a parameter/diagnostic dictionary or an
   explicit sparse/optimizer-failure status. Only raw integer observations on
   inclusive finite support enter its likelihood. `histogram` returns observed

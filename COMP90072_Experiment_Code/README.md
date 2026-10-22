@@ -90,10 +90,11 @@ ensemble outputs; numerical tables also need the confirmation and sensitivity
 results. Running `all` handles these dependencies.
 
 Simulation stages reuse completed compatible runs and resume interrupted runs
-from stable checkpoints. Each cohort keeps one readable copy of its simulation
-sources in `simulation_sources.json`. Resumption compares those copies with the
-current files. Use a fresh output directory after editing simulation sources.
-This edition uses the v2 data format; do not mix it with older checkpoints.
+from stable checkpoints. Editing a simulation source file, including its comments
+or formatting, changes the stored source fingerprint. Use a fresh output
+directory after such an edit. Do not copy the original archive's checkpoints
+into this reformatted version. Its event-generation rules are unchanged, but
+its source fingerprint is intentionally different.
 
 ## How the files fit together
 
@@ -105,7 +106,7 @@ This edition uses the v2 data format; do not mix it with older checkpoints.
 | `sandpile/kernel.c` | The same active-site approach implemented for long runs |
 | `sandpile/fast.py` | Validated NumPy/C interface and local C compilation |
 | `sandpile/experiment.py` | Random streams, burn-in, measured events, paired batches and resumption |
-| `sandpile/io.py` | Atomic files, source copies and NPZ checks |
+| `sandpile/io.py` | Atomic file writes, hashes and environment records |
 | `sandpile/statistics.py` | Seed intervals, ACFs and normalized discrete likelihoods |
 | `sandpile/analysis.py` | Measurement checks and the statistical comparisons |
 | `sandpile/plots.py`, `report_artifacts.py` | Figure and table generation from saved results |
@@ -149,27 +150,28 @@ event records are supplied separately in the full project; this is a code packag
 
 ## Reproducibility
 
-The numerical rules and frozen configurations are unchanged. This edition uses
-simple file checks: saved source copies, chunk byte counts and the NPZ format's
-built-in CRCs. The C library is rebuilt when its saved source copy differs.
-The original execution snapshot remains in the full project.
+The numerical code is reformatted and annotated for this handoff. The Python
+syntax trees are compared after excluding docstrings, and the C loop is checked
+after local-variable renaming. Frozen configuration files are copied unchanged.
+`reference_results/readability_check.json` records this comparison. The workflow
+wrapper, examples and optional PDF switch are new conveniences.
 
-Event data, input coordinates and height checkpoints are integer arrays. The
-analysis checks completed budgets, archive integrity, mass conservation and a
-finite-window potential identity. Tests compare independent implementations,
-batching and interrupted/restarted runs. File checks detect ordinary damage;
-they do not certify that nobody deliberately edited the data.
+For a generated run, event data, input coordinates and height checkpoints are
+integer arrays. Metadata stores the generator state and hashes of complete
+chunks. The analysis checks raw hashes, mass conservation and a finite-window
+potential identity before using those events. Timing measurements are separate
+from the integer reproducibility checks.
 
-The result index lists input paths, file lengths, generation commands and
-analysis keys for the report's numbers. Check it with:
+After generating results, verify their snapshot with:
 
 ```bash
 python scripts/manifest.py --verify
 ```
 
-`FILES.txt` lists the delivered files. `docs/validation.md` records the checks
-run on this edition. Finite grids, five primary seeds and range-dependent fits
-still limit scientific interpretation.
+The package's own `FILES.sha256` lists the delivered files. `docs/validation.md`
+records the commands actually run on this edition. Finite grid sizes, five
+primary seeds and range-dependent marginal fits still limit the conclusions;
+cleaner code does not change those limits.
 
 To rebuild this source ZIP after editing it:
 

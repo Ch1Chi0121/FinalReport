@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sandpile.experiment import read_events
 from sandpile.statistics import discrete_fit, mean_interval
-from sandpile.io import atomic_json, check_chunk
+from sandpile.io import atomic_json, sha256
 
 
 def main():
@@ -23,8 +23,9 @@ def main():
         for chunk in meta["chunks"]:
             if chunk["stage"] == "production":
                 file = path / chunk["file"]
-                check_chunk(path, chunk)
-                inputs.append({"path": str(file), "bytes": chunk["bytes"]})
+                if sha256(file) != chunk["sha256"]:
+                    raise ArithmeticError(f"Raw hash mismatch: {file}")
+                inputs.append({"path": str(file), "sha256": chunk["sha256"]})
         values.append(read_events(path)["events"][:, 0])
     records = []
     for factor in c["xmax_factors_L2"]:

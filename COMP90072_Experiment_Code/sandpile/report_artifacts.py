@@ -2,7 +2,7 @@
 import csv
 import json
 from pathlib import Path
-from .io import atomic_json
+from .io import atomic_json, sha256
 
 OUT = Path("report/generated")
 SHORT = {"baseline": "base", "biased": "bias", "cylinder": "cyl", "batch": "batch"}

@@ -9,7 +9,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from sandpile.io import atomic_json, now
+from sandpile.io import atomic_json, sha256, now
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -75,6 +75,7 @@ def main():
             "utc": now(),
             "command": command,
             "physical_pages": pages,
+            "pdf_sha256": sha256(ROOT / "report/final_report.pdf"),
             "unresolved_references": False,
             "overfull_boxes": False,
             "visual_review": "separately recorded in docs/final_audit.md",

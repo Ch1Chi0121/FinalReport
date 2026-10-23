@@ -1,23 +1,25 @@
 \chapter{Results}\label{ch:results}
 \section{Stationarity, height, and sampling}\label{sec:baseline}
 \subsection{Approach to the measured regime}\label{sec:stationarity}
-The pilot resolves initial mass accumulation and later fluctuations (Figure~\ref{fig:pilot}). Empty starts give a lower mean in the first $10L^2$-grain window. The longest estimated height or frequency correlation time was about 1,195 grains, making the chosen block about seven times longer. These diagnostics guided burn-in and blocking for the measured observables. Each starting state had one independent pilot chain.
+The pilot trajectories show initial mass accumulation followed by fluctuations around similar mean heights (Figure~\ref{fig:pilot}). Empty starts give a lower mean in the first $10L^2$-grain window. The longest estimated height or frequency correlation time was about 1,195 grains, making the chosen block about seven times longer. These diagnostics guided burn-in and blocking. Each starting state had one independent pilot chain.
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/pilot.png}
-\caption{Different initial configurations approach similar late-stage height levels within each model, supporting the selected burn-in for the measured observables. Independent $L=64$ pilots start empty, random stable and all-three. Top: 512-grain mean heights over the first $12L^2$ grains. Bottom: connected $10L^2$-window means after the first window; vertical lines mark selected burn-in. Uniform/cylinder pilots last $60L^2$ grains; biased pilots last $100L^2$. The main runs use independent seeds. These checks do not establish complete mixing.}
+\caption{Different initial configurations approach similar late-stage height levels within each model, supporting the selected height burn-in. Independent $L=64$ pilots start empty, random stable and all-three. Top: 512-grain mean heights over the first $12L^2$ grains. Bottom: connected $10L^2$-window means after the first window; vertical lines mark selected burn-in. Uniform/cylinder pilots last $60L^2$ grains; biased pilots last $100L^2$. Primary runs use separate seeds.}
 \label{fig:pilot}
 \end{figure}
 
-Across four consecutive measurement windows, height, all four height frequencies, mean topplings, loss and dissipation probability fluctuate without a common continuing drift. The small height difference under bias prompted a separate investigation (Section~\ref{sec:bias}). Every main run passed the exact mass and potential-balance checks in Eq.~\eqref{eq:potentialbalance}, and every sparse benchmark residual was below $10^{-10}$.
+Across four consecutive measurement windows, height, all four height frequencies, mean topplings, loss and dissipation probability fluctuate without a common continuing drift. A small height difference under bias prompted the separate investigation in Section~\ref{sec:bias}. Every primary run passed the mass and potential-balance checks in Eqs.~\eqref{eq:mass} and~\eqref{eq:potentialbalance}, and every sparse benchmark residual was below $10^{-10}$.
 
 \subsection{Height, finite size, and flux}\label{sec:height}
-The equal-height-frequency prediction of $3/2$ is inconsistent with the measured baseline (Table~\ref{tab:baseline}, Figure~\ref{fig:baseline}). Mean height rises from \R{base8height} at $L=8$ to \R{base64height} at $L=64$, approaching the infinite-volume value $17/8$. Height-three sites are much more frequent than height-zero sites.
+Measured stable heights have unequal frequencies, with height three much more common than height zero (Figure~\ref{fig:baseline}). This weighting gives a mean above the equal-frequency reference $3/2$.
+
+Mean height rises from \R{base8height} at $L=8$ to \R{base64height} at $L=64$, approaching the infinite-volume value $17/8$ (Table~\ref{tab:baseline}).
 
 \begin{table}[!htbp]
 \centering\small\setlength{\tabcolsep}{4pt}
 \input{generated/baseline_table}
-\caption{Baseline simulations with five seeds and one million grains per size. Heights and topplings are means $\pm$ 95\% seed-level interval half-widths, averaging over all input events. Predictions come from the sparse systems. The last columns give zero-avalanche probability, zero-loss probability among avalanches, and loss probability per input.}
+\caption{Baseline simulations with five seeds and one million grains per size. Mean heights and topplings include all input events and 95\% seed interval half-widths. Predictions come from the sparse systems. The last columns give zero-avalanche probability, zero-loss probability among avalanches, and loss probability per input.}
 \label{tab:baseline}
 \end{table}
 
@@ -34,26 +36,23 @@ For $L=32$, one long trajectory gives time-sampled mean height \R{timeheight}, i
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/sampling.png}
-\caption{Time and ensemble sampling. Top: estimates and 95\% intervals from one $L=32$ trajectory at three block lengths, compared with 100 independent chains at age $20L^2$. Time estimates cover 196,608 grains, with height-three frequency sampled every 128 grains. Bottom: height and toppling ACFs for the first run at $L=32,64$. The different dependence patterns motivate separate diagnostics for each observable. The ensemble unit is an independent chain.}
+\caption{Time and ensemble estimates agree within their uncertainty. Top: estimates and 95\% intervals from one $L=32$ trajectory at three block lengths, compared with 100 independent chains at age $20L^2$. Time estimates cover 196,608 grains, with height-three frequency sampled every 128 grains. Bottom: height and toppling autocorrelation functions (ACFs) for the first run at $L=32,64$. The ensemble unit is an independent chain.}
 \label{fig:sampling}
 \end{figure}
 
-The time and ensemble estimates remain consistent when the block length changes. Height has persistent positive dependence, whereas topplings show short-lag anticorrelation. These different patterns support using separate dependence diagnostics for each observable.
+The time and ensemble estimates remain consistent when the block length changes. Height has persistent positive dependence, whereas topplings show short-lag anticorrelation, so their uncertainty requires separate dependence diagnostics.
 
+\FloatBarrier
 \section{Avalanche distributions and finite-range fits}\label{sec:distributions}
 At $L=64$, the largest observed toppling count is \R{fitSpowermax}, above the fitting cap $L^2=4096$. These larger events remain in the means and empirical distributions (Figure~\ref{fig:distributions}). The bounds $L^2$ for area and $2L-1$ for single-source open reach reflect the finite grid directly. Loss measures transport to the boundary and differs in distribution from topples or area.
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/distributions.png}
-\caption{Avalanches extend to larger sizes as $L$ grows, with different shapes for topplings, area, loss and reach. Baseline CCDFs use $L=8,16,32,64$, five seeds and one million inputs per size, conditional on $S>0$. Left-continuous steps show inclusive $P(X\geq x)$. Zero loss remains in the normalization but is absent on log axes; Table~\ref{tab:baseline} gives its mass. Broad ranges alone do not establish universal power laws.}
+\caption{Avalanches extend to larger sizes as $L$ grows, with different shapes for topplings, area, loss and reach. Baseline CCDFs use $L=8,16,32,64$, five seeds and one million inputs per size, conditional on $S>0$. Left-continuous steps show inclusive $P(X\geq x)$. Zero loss remains in the normalization but is absent on log axes; Table~\ref{tab:baseline} gives its mass.}
 \label{fig:distributions}
 \end{figure}
 
-Zero events make a substantial part of the sample. At $L=64$, $P(S=0)=\R{base64p_zero}$, and $P(D=0\mid S>0)=\R{base64p_zero_loss_given_avalanche}$. A positive-loss tail describes only the dissipative subset of avalanches.
-
-\begin{samepage}
-The mean $\E[S]$ in Eq.~\eqref{eq:benchmark} averages over every input, including those that cause no toppling.\par
-\end{samepage}
+Zero events make up a substantial part of the sample. At $L=64$, $P(S=0)=\R{base64p_zero}$, and $P(D=0\mid S>0)=\R{base64p_zero_loss_given_avalanche}$. A positive-loss tail describes the dissipative subset of avalanches.
 
 \begin{table}[!htbp]
 \centering\small\setlength{\tabcolsep}{4pt}
@@ -62,7 +61,7 @@ The mean $\E[S]$ in Eq.~\eqref{eq:benchmark} averages over every input, includin
 \label{tab:fits}
 \end{table}
 
-On $16\leq S\leq4096$, the pure-power effective exponent is \R{fitSpoweralpha}, with interval $\R{fitSpoweralphaCI}$. Adding an exponential cutoff reduces mean KS from \R{fitSpowerKS} to \R{fitScutoffKS}; an exponential alone gives \R{fitSexponentialKS}. The cutoff model gains \R{fitScutoffscore} nats per retained observation in mean marginal log score over power. Its CDF follows the observed curvature more closely on this range. The comparison is descriptive because the scores use the fitting data and the cutoff model has an extra parameter.
+On $16\leq S\leq4096$, the pure-power effective exponent is \R{fitSpoweralpha}, with interval $\R{fitSpoweralphaCI}$ (Table~\ref{tab:fits}). Adding an exponential cutoff reduces mean KS from \R{fitSpowerKS} to \R{fitScutoffKS}; an exponential alone gives \R{fitSexponentialKS}. The cutoff model gains \R{fitScutoffscore} nats per retained observation in mean marginal log score over power. Its CDF follows the observed curvature more closely on this range (Figure~\ref{fig:fits}).
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/fits.png}
@@ -70,14 +69,18 @@ On $16\leq S\leq4096$, the pure-power effective exponent is \R{fitSpoweralpha}, 
 \label{fig:fits}
 \end{figure}
 
-Area also shows curvature: the power and cutoff KS distances are \R{fitApowerKS} and \R{fitAcutoffKS}. For positive loss, a pure power gives KS \R{fitDpowerKS}, compared with \R{fitDexponentialKS} for an exponential and \R{fitDcutoffKS} for cutoff power. Reach has a visibly curved finite-support distribution too. The four observables therefore support finite-range descriptions with different shapes.
+Area also shows curvature: the power and cutoff KS distances are \R{fitApowerKS} and \R{fitAcutoffKS}. For positive loss, a pure power gives KS \R{fitDpowerKS}, compared with \R{fitDexponentialKS} for an exponential and \R{fitDcutoffKS} for cutoff power. Reach has a curved finite-support distribution too.
 
-The estimated slopes depend on the fitting range. At $L=64$, halving and doubling the chosen lower limits gives pure-power estimates spanning \R{sensitivityS} for $S$, \R{sensitivityA} for area, \R{sensitivityD} for positive loss and \R{sensitivityell} for reach. This variation is separate from the narrower uncertainty intervals conditional on one range. Broad distributions and growing scales match the expected BTW behaviour, but the range dependence limits interpretation of a single fitted exponent. Earlier work also found that simple scaling fails for BTW toppling statistics~\cite{demenech1998}.
+The estimated slopes depend on the fitting range. At $L=64$, halving and doubling the chosen lower limits gives pure-power estimates spanning \R{sensitivityS} for $S$, \R{sensitivityA} for area, \R{sensitivityD} for positive loss and \R{sensitivityell} for reach. This variation is separate from the narrower uncertainty intervals conditional on one range. The fitted exponents therefore describe the finite ranges examined here. Earlier work also found that simple scaling fails for BTW toppling statistics~\cite{demenech1998}.
 
 An additional upper-limit check uses the same five $L=64$ runs and $x_{\min}=16$, with $x_{\max}=2048,4096,8192$. The retained counts are \R{upperRetained}, respectively. Mean cutoff KS distances are \R{uppercutoffKS}, compared with \R{upperpowerKS} for power, and pure-power exponents span \R{upperPowerAlpha}. Curvature is preferred descriptively at all three caps, while the parameter estimates remain range-dependent.
 
 \section{Correlations and the role of the source position}\label{sec:correlations}
-We expected a positive correlation between $S$ and $A$: every site counted in the area must topple at least once, and some sites topple repeatedly. Larger areas should also tend to have greater spatial extent. Loss should depend on these quantities as well as distance from the input site to the boundary. Figure~\ref{fig:correlations} supports these predictions. All six Spearman correlations use $S>0$ and retain zero-loss avalanches.
+We expected a positive correlation between $S$ and $A$: every site counted in the area must topple at least once, and some sites topple repeatedly. Larger areas should also tend to have greater spatial extent. Loss should depend on these quantities and on the input site's distance to a dissipative boundary. For a single-grain input at $(i_t,j_t)$ on the open square, we use
+\[
+ b_t=\min(i_t,j_t,L-1-i_t,L-1-j_t).
+\]
+This is the distance to the nearest dissipative boundary site, with $b_t=0$ on the boundary. Figure~\ref{fig:correlations} compares loss probabilities within fixed size bands and $b$ groups. All six Spearman correlations use $S>0$ and retain zero-loss avalanches.
 
 At $L=64$, $\rho(S,A)=\R{rhoSA}$ with interval $\R{rhoSACI}$, $\rho(S,\ell)=\R{rhoSell}$ with $\R{rhoSellCI}$, and $\rho(A,\ell)=\R{rhoAell}$ with $\R{rhoAellCI}$. Repeated topplings and differences in cluster shape allow these observables to differ even when their ranks agree closely. Loss is less strongly correlated: $\rho(S,D)=\R{rhoSD}$ with $\R{rhoSDCI}$, $\rho(A,D)=\R{rhoAD}$ with $\R{rhoADCI}$, and $\rho(D,\ell)=\R{rhoDell}$ with $\R{rhoDellCI}$.
 
@@ -87,7 +90,7 @@ At $L=64$, $\rho(S,A)=\R{rhoSA}$ with interval $\R{rhoSACI}$, $\rho(S,\ell)=\R{r
 \label{fig:correlations}
 \end{figure}
 
-The boundary-distance groups show that avalanches of similar size are more likely to dissipate when they start nearer a sink. Activity from a source farther inside the grid must reach a boundary before any grain can leave. This helps explain why loss correlates less strongly with topples than area does. Other avalanche features still vary within each group. Each grid size is analysed separately.
+Within the plotted size bands, avalanches starting nearer a sink have higher dissipation probabilities. Activity from an interior source must reach a boundary before any grain can leave, which helps explain the weaker association between loss and topplings. The grouping compares events of similar size; other avalanche features can still vary within each group. Each grid size is analysed separately.
 
 \section{Controlled changes to drive, boundaries and grouping}\label{sec:extensions}
 Table~\ref{tab:extensions} compares each extension with its control at the same size. Open and cylindrical runs receive the same grain budget. Batch runs receive the same total grains in a quarter as many events. In each model, conservation gives stationary mean loss one per grain, while the measurements show how that loss is distributed across events.
@@ -106,26 +109,27 @@ On the open square, we bias the input towards the centre using
  \frac{\exp[-\|x-c\|_2^2/(2\sigma^2)]}{\sum_y\exp[-\|y-c\|_2^2/(2\sigma^2)]},
  \quad \eta=0.9,\quad\sigma=L/8,\quad c=((L-1)/2,(L-1)/2).
 \end{equation}
-Every site has positive input probability, bounded below by $0.1/L^2$. Changing these probabilities on the same graph preserves the recurrent stationary measure and its height statistics. The mean response is $\E[S]=q^\top w$, however, so it weights sites according to their input probabilities. Central sites are farther from sinks and have a larger expected response. Biased input can therefore increase mean topplings while preserving the stationary state measure.
+Every site has positive input probability, bounded below by $0.1/L^2$, so the recurrent stationary measure and its height statistics are preserved. The stationary mean response $\E[S]=q^\top w$ weights sites by their input probabilities. Bias towards central sites, farther from the sinks, therefore predicts more topplings per grain.
 
 At $L=64$, mean topplings rise from \R{base64S_grain} to \R{bias64S_grain}, close to the actual-$q$ benchmark \R{bias64prediction} (Figure~\ref{fig:driving}). Dissipation probability falls from \R{base64p_loss} to \R{bias64p_loss}, while mean loss conditional on dissipation rises from \R{base64D_positive} to \R{bias64D_positive}. Mean loss per grain is \R{bias64D_grain}. The triggering probability can also change: biased input samples sites with different spatial weights even when the stationary law of the grid stays the same.
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/driving.png}
-\caption{Spatial bias changes avalanche responses; the stationary height distribution is theoretically invariant on the same graph under full-support driving. Top left: $L=64$ input probability relative to uniform. Top right: finite-sample biased-minus-uniform height-frequency differences at $L=32,64$, with Welch 95\% independent-seed intervals; the theoretical difference is zero. Bottom: $L=64$ size ($S>0$) and loss ($D>0$) CCDFs, with five seeds per condition.}
+\caption{Spatial bias changes avalanche responses on the same graph. Top left: $L=64$ input probability relative to uniform. Top right: biased-minus-uniform height-frequency differences in the primary runs at $L=32,64$, with Welch 95\% independent-seed intervals; stationary theory predicts zero difference. Bottom: $L=64$ size ($S>0$) and loss ($D>0$) CCDFs, with five seeds per condition.}
 \label{fig:driving}
 \end{figure}
 
-The initial $L=32$ height difference was \R{bias32heightDifference}, with nominal interval $\R{bias32heightDifferenceCI}$ narrowly excluding zero. At $L=64$ it was \R{bias64heightDifference}, interval $\R{bias64heightDifferenceCI}$. To investigate, we ran a separate confirmation with five new seeds for both models at both sizes, $100L^2$ burn-in and 800,000 measured grains per chain. Each condition received the same larger budget. The differences were \R{confirm32}, interval $\R{confirm32CI}$, and \R{confirm64}, interval $\R{confirm64CI}$, respectively. The longer runs do not reproduce a persistent deficit. With five seeds and several inspected contrasts, the initial nominal interval warrants caution. The confirmation intervals are compatible with zero at the precision of this comparison.
+The primary $L=32$ height difference was \R{bias32heightDifference}, with nominal interval $\R{bias32heightDifferenceCI}$ narrowly excluding zero among several inspected contrasts. At $L=64$ it was \R{bias64heightDifference}, interval $\R{bias64heightDifferenceCI}$. We investigated with five new seeds for each model at both sizes, giving every condition the same longer budget: $100L^2$ burn-in and 800,000 measured grains per chain. The confirmation differences were \R{confirm32}, interval $\R{confirm32CI}$, and \R{confirm64}, interval $\R{confirm64CI}$, respectively. Both intervals contain zero; the longer runs did not reproduce the initial height deficit.
 
+\FloatBarrier
 \subsection{Cylindrical boundaries}\label{sec:cylinder}
-For the cylinder, columns are periodic and grains leave only above the top row or below the bottom row. At $L\geq3$, a toppling on a dissipative row loses one grain, including at the periodic seam. The simulations use widths of at least three. The graph distance is
+For the cylinder, columns are periodic and grains leave only above the top row or below the bottom row. At the simulated widths $L\geq3$, a toppling on a dissipative row loses one grain, including at the periodic seam. The graph distance is
 \begin{equation}
  d_{\rm cyl}((i,j),(i_0,j_0))=|i-i_0|+\min(|j-j_0|,L-|j-j_0|),
 \end{equation}
 and the source distance to a dissipative boundary is $\min(i,L-1-i)$. Reach follows this cylindrical distance and is bounded by $L+\lfloor L/2\rfloor$.
 
-A finite-grid benchmark follows by taking $w$ constant along each row. Set $w_{-1}=w_L=0$ and
+A finite-grid benchmark for the stationary mean follows by taking $w$ constant along each row. Set $w_{-1}=w_L=0$ and
 \begin{equation}
  w(i,j)=\frac{(i+1)(L-i)}{2}.
 \end{equation}
@@ -138,19 +142,13 @@ Substitution into the sparse matrix verifies this analytic result.
 
 \begin{figure}[!htbp]
 \centering\includegraphics[width=\linewidth]{generated/cylinder.png}
-\caption{Cylinder and open boundaries. Top: size and area CCDFs at $L=32,64$, conditional on $S>0$. Bottom left: mean stable height with 95\% seed intervals. Bottom right: positive-loss CCDFs at $L=64$. Each curve uses five primary seeds. Both models receive one grain per event and have theoretical mean loss one, with different loss frequencies and conditional magnitudes.}
+\caption{Cylindrical boundaries increase mean height and change avalanche size and loss distributions. Top: size and area CCDFs at $L=32,64$, conditional on $S>0$. Bottom left: mean stable height with 95\% seed intervals. Bottom right: positive-loss ($D>0$) CCDFs at $L=64$. Each curve uses five primary seeds and one grain per event.}
 \label{fig:cylinder}
 \end{figure}
 
-Equation~\eqref{eq:cylinder} predicts 93.5 and 357.5 topplings at $L=32,64$. The measured means are \R{cyl32S_grain} and \R{cyl64S_grain}; at $L=64$, the interval $\R{cyl64S_grainCI}$ contains the benchmark. Mean height exceeds the open control by \R{cyl64heightDifference}, interval $\R{cyl64heightDifferenceCI}$. Here the boundary change affects the height statistics as well as the response. With fewer dissipative edges, grains stay longer and generate more topplings, while conservation still fixes stationary loss at one per input. At $L=64$, mean loss is \R{cyl64D_grain}, with dissipation probability \R{cyl64p_loss} and conditional mean loss \R{cyl64D_positive}. Figure~\ref{fig:cylinder} shows how the boundary change affects size, area and loss.
+Equation~\eqref{eq:cylinder} predicts 93.5 and 357.5 topplings at $L=32,64$. The measured means are \R{cyl32S_grain} and \R{cyl64S_grain}; at $L=64$, the interval $\R{cyl64S_grainCI}$ contains the benchmark. Mean height exceeds the open control by \R{cyl64heightDifference}, interval $\R{cyl64heightDifferenceCI}$ (Figure~\ref{fig:cylinder}). With fewer dissipative edges, grains stay longer and generate more topplings. The boundary change affects both height statistics and response, while stationary loss remains one per input grain. At $L=64$, mean loss is \R{cyl64D_grain}, with dissipation probability \R{cyl64p_loss} and conditional mean loss \R{cyl64D_positive}.
 
 \subsection{Batches as an exact grouping experiment}\label{sec:batch}
-\begin{figure}[!htbp]
-\centering\includegraphics[width=\linewidth]{generated/batch.png}
-\caption{Event grouping at $L=64$ for five matched runs: one million baseline single-grain events and 250,000 four-grain batches. Grouped sequential size and loss coincide with the batch values. For area, the third curve sums four sequential areas, counting shared sites repeatedly; the batch counts their union. Curves condition on nonzero grouped or ungrouped avalanches as appropriate. Bottom right: triggering and dissipation probabilities with seed intervals. Per-grain mean topplings and loss agree exactly in the paired runs.}
-\label{fig:batch}
-\end{figure}
-
 Each batch draws four independent uniform sites with replacement and adds their grains before relaxation. We compare this with sequential single-grain additions from the same stable $h$, using the same ordered sites $s_1,\ldots,s_m$. A toppling in the sequential schedule remains legal if later, nonnegative inputs are already present. Concatenating those schedules therefore stabilizes the batched input legally. Uniqueness of the odometer gives
 \begin{equation}
  h_{\rm batch}=h_{\rm sequential},\quad
@@ -161,8 +159,14 @@ Area counts the union of toppled sites. The sum $\sum_r A_r$ counts shared sites
 
 If $P$ is the one-grain transition, independent sources give batch transition $P^m$. Every stationary measure of $P$ is stationary for $P^m$. Depending on the sampling period, $P^m$ can still have more than one recurrent class or fail to converge from a particular start. We use a matched baseline grid after equilibration so that the comparison isolates grouping. Each batch is fully relaxed before the next one arrives.
 
-Across both sizes, all \R{matchedBatches} batches match the grouped controls exactly in $S$, $D$ and final mass. Grid configurations and height frequencies also agree whenever sampled. Independent small-grid tests verify the full odometer and area-union identities. At $L=64$, \R{overlap64}\% of batches have overlapping toppled sets, and summing sequential areas exceeds the mean union by \R{overcount64} sites per batch. These overlaps account for the difference between the two area curves.
+Across both sizes, all \R{matchedBatches} batches match the grouped controls exactly in $S$, $D$ and final mass. Grid configurations and height frequencies also agree whenever sampled. Independent small-grid tests verify the full odometer and area-union identities. At $L=64$, \R{overlap64}\% of batches have overlapping toppled sets, and summing sequential areas exceeds the mean union by \R{overcount64} sites per batch. These overlaps account for the difference between the two area curves in Figure~\ref{fig:batch}.
 
-Grouping raises toppling probability from \R{base64p_trigger} to \R{batch64p_trigger} and loss probability from \R{base64p_loss} to \R{batch64p_loss}. Mean loss is about four per batch, with exactly the baseline value per grain. Combining successive, potentially overlapping single-grain responses changes event distributions.
+\begin{figure}[!htbp]
+\centering\includegraphics[width=\linewidth]{generated/batch.png}
+\caption{Event grouping at $L=64$ for five matched runs: one million baseline single-grain events and 250,000 four-grain batches. Grouped sequential size and loss coincide with the batch values. For area, summing four sequential areas counts shared sites repeatedly; the batch counts their union. CCDFs condition on nonzero grouped or ungrouped avalanches as appropriate. Bottom right: unconditional triggering and dissipation probabilities with 95\% seed intervals.}
+\label{fig:batch}
+\end{figure}
+
+Grouping raises toppling probability per event from \R{base64p_trigger} to \R{batch64p_trigger} and loss probability from \R{base64p_loss} to \R{batch64p_loss}. Mean loss is about four per batch, with exactly the baseline value per grain. The higher event probabilities reflect four successive inputs combined into one event.
 
 

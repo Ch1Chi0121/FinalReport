@@ -1,0 +1,12 @@
+{
+  "schema":"confirmation-v1",
+  "reason":"Investigate small biased-minus-uniform height deficit after fixed full production. Independent diagnostic; never replaces primary data.",
+  "output":"data/confirmation_v1",
+  "conditions":{"baseline":[32,64],"biased":[32,64]},
+  "seeds":[51001,51002,51003,51004,51005],
+  "stream":510,
+  "production_grains":800000,
+  "burn_factors":{"baseline":100,"biased":100},
+  "chunk_grains":8192,
+  "sample_grains":128
+}

@@ -1,0 +1,31 @@
+{
+  "python": "3.12.2 (v3.12.2:6abddd9f6a, Feb  6 2024, 17:02:06) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.13.0",
+    "matplotlib": "3.8.4"
+  },
+  "timestamp": "2026-10-10T15:14:41.732620+00:00",
+  "compiler": {
+    "command": [
+      "cc",
+      "-O3",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-fPIC",
+      "-shared",
+      "/Users/chachihsu/Complex System/sandpile/kernel.c",
+      "-o",
+      "/Users/chachihsu/Complex System/build/kernel.dylib"
+    ],
+    "seconds": 1.1242817500024103,
+    "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.3)",
+    "library": "/Users/chachihsu/Complex System/build/kernel.dylib"
+  },
+  "cpu_brand": "Unavailable: sandbox disallows machdep.cpu.brand_string; architecture recorded."
+}

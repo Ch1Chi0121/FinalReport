@@ -1,0 +1,204 @@
+{
+  "status": "passed",
+  "edition": "experiment-only",
+  "date_melbourne": "2026-10-23",
+  "workflow_input": "Copies of 181 completed compatible runs; production resumed/reused, not newly sampled.",
+  "unit_tests_passed": 24,
+  "fresh_smoke_executions": 2,
+  "fresh_runs_per_smoke_execution": 8,
+  "matching_statistical_outputs": [
+    "summary",
+    "fits",
+    "correlations",
+    "coupling",
+    "ensemble",
+    "extensions",
+    "stationarity",
+    "benchmarks",
+    "boundary",
+    "acf",
+    "upper_limit_sensitivity",
+    "confirmation"
+  ],
+  "matching_figures": [
+    "baseline.png",
+    "batch.png",
+    "correlations.png",
+    "cylinder.png",
+    "distributions.png",
+    "driving.png",
+    "fits.png",
+    "pilot.png",
+    "sampling.png",
+    "supplement_pmf.png",
+    "supplement_size_loss.png"
+  ],
+  "identical_event_chunks": 4765,
+  "identical_state_files": 543,
+  "full_precision_summary_csv": "byte-identical",
+  "formatted_values": 499,
+  "changed_values_are_new_benchmark_timings": [
+    "compileSeconds",
+    "warmupSeconds"
+  ],
+  "csv_tables": {
+    "performance": 4,
+    "baseline": 4,
+    "fits": 12,
+    "extensions": 8
+  },
+  "simulation_and_statistical_rules": "unchanged",
+  "confirmation_comparison_excludes": "execution timestamp and elapsed call time",
+  "executed_stages": [
+    {
+      "stage": "check",
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "status": "passed",
+      "wall_seconds": 5.266576875001192
+    },
+    {
+      "stage": "benchmark",
+      "arguments": [
+        "scripts/benchmark.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 7.418290749999869
+    },
+    {
+      "stage": "pilot",
+      "arguments": [
+        "scripts/pilot.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 1.6335495829989668
+    },
+    {
+      "stage": "production",
+      "arguments": [
+        "-m",
+        "sandpile.experiment",
+        "configs/full.json"
+      ],
+      "status": "passed",
+      "wall_seconds": 0.30087079200166045
+    },
+    {
+      "stage": "ensemble",
+      "arguments": [
+        "scripts/ensemble.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 0.8646438329960802
+    },
+    {
+      "stage": "confirmation",
+      "arguments": [
+        "scripts/confirmation.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 4.25861066699872
+    },
+    {
+      "stage": "analysis",
+      "arguments": [
+        "-m",
+        "sandpile.analysis",
+        "configs/full.json"
+      ],
+      "status": "passed",
+      "wall_seconds": 9.634619541000575
+    },
+    {
+      "stage": "sensitivity",
+      "arguments": [
+        "scripts/upper_limit_sensitivity.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 0.9991436669952236
+    },
+    {
+      "stage": "figures",
+      "arguments": [
+        "-m",
+        "sandpile.plots"
+      ],
+      "status": "passed",
+      "wall_seconds": 6.289854416994785
+    },
+    {
+      "stage": "tables",
+      "arguments": [
+        "-m",
+        "sandpile.tables"
+      ],
+      "status": "passed",
+      "wall_seconds": 0.15471187500224914
+    },
+    {
+      "stage": "manifest",
+      "arguments": [
+        "scripts/manifest.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 4.542073582997546
+    },
+    {
+      "stage": "verify",
+      "arguments": [
+        "scripts/manifest.py",
+        "--verify"
+      ],
+      "status": "passed",
+      "wall_seconds": 2.306141041997762
+    },
+    {
+      "stage": "smoke",
+      "arguments": [
+        "scripts/smoke.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 5.043923625002208
+    },
+    {
+      "stage": "tables",
+      "arguments": [
+        "-m",
+        "sandpile.tables"
+      ],
+      "status": "passed",
+      "wall_seconds": 0.14838112500001444
+    },
+    {
+      "stage": "manifest",
+      "arguments": [
+        "scripts/manifest.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 4.56436033299542
+    },
+    {
+      "stage": "smoke",
+      "arguments": [
+        "scripts/smoke.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 1.7658214580005733
+    },
+    {
+      "stage": "manifest",
+      "arguments": [
+        "scripts/manifest.py"
+      ],
+      "status": "passed",
+      "wall_seconds": 2.832333792001009
+    }
+  ],
+  "dependency_check": "Runner help exposes experiment stages only; no document compiler dependency."
+}

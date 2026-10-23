@@ -1,0 +1,11 @@
+{
+  "schema":"smoke-v1",
+  "output":"data/smoke_v1",
+  "conditions":{"baseline":[8],"biased":[8],"cylinder":[8],"batch":[8]},
+  "seeds":[91001,91002],
+  "stream":910,
+  "production_grains":2048,
+  "burn_factors":{"baseline":20,"biased":40,"cylinder":20},
+  "chunk_grains":512,
+  "sample_grains":16
+}
